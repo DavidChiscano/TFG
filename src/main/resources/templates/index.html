@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>David - TFG</title>
     <link rel="stylesheet" th:href="@{/css/output.css}">
-    <script th:src="@{js/ajax.js}"></script>
+    
     <script defer src="https://unpkg.com/alpinejs@3.2.3/dist/cdn.min.js"></script>
 </head>
 <body class="bg-gray-900">
@@ -18,17 +18,15 @@
     <div class="flex justify-end px-2 pt-4"></div>
     <div class="flex flex-col items-center pb-10">
     <img class="mb-3 w-24 h-24 rounded-full shadow-lg" src="" alt="Imagen cuenta">
-    <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white" th:text="${cuenta.usuario}"></h5>
-    <span class="text-sm text-gray-500 dark:text-gray-400" th:text="${cuenta.id_cuenta}"></span>
+    <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white" id="cuentaEncontrada"></h5>
+    <span class="text-sm text-gray-500 dark:text-gray-400" id="nivelCuenta"></span>
     <div class="flex mt-4 space-x-3 lg:mt-6">
-    <a href="#" class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ver</a>
+    <a href="#" id="ver" class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ver</a>
     <a href="#" class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-gray-900 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Eliminar</a>
     </div>
     </div>
     </div>
-    
 </div>
-
 
 <!-- component -->
 
@@ -38,20 +36,21 @@
   <div class="flex rounded bg-white w-[30rem]" x-data="{ search: '' }">
     <input
       type="search"
+      id="buscador"
       class="w-full border-none bg-transparent px-4 py-1 text-gray-900 outline-none focus:outline-none"
       placeholder="Nombre de invocador..."
       x-model="search"
     />
     <button
       type="button"
+      id="btnBuscar"
       class="m-2 rounded px-4 px-4 py-2 font-semibold text-gray-100"
       :class="(search.length > 0) ? 'bg-purple-500' : 'bg-gray-500 cursor-not-allowed'"
       :disabled="search.length == 0"
-    >
-      Buscar
+    >Buscar
     </button>
   </div>
 </main>
-
+<script th:src="@{js/ajax.js}"></script>
 </body>
 </html>
