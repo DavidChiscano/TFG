@@ -323,6 +323,7 @@ document.getElementById("ver").onclick = function() {
 									console.log(arrayMapped[i].name);
 									tagsPj1.push(arrayMapped[i].tags);
 									pj1 = arrayMapped[i].name;
+									document.getElementById("nombrePj1").textContent = arrayMapped[i].name;
 									document.getElementById("lorePj1").textContent = arrayMapped[i].title;
 									for (let x = 0; x < tagsPj1.length; x++) {
 										document.getElementById("tagsPj1").textContent = tagsPj1[x];
@@ -348,10 +349,18 @@ document.getElementById("ver").onclick = function() {
 								}
 							}
 							console.log(arrayMapped);
-							document.getElementById("nombrePj1").textContent = pj1;
-							document.getElementById("masJugado1").src = urlImgCampeones + pj1 + ".png";
-							document.getElementById("masJugado2").src = urlImgCampeones + pj2 + ".png";
-							document.getElementById("masJugado3").src = urlImgCampeones + pj3 + ".png";
+							
+							//Check si es este personaje para quitar el caracter del nombre y cargar los datos correctamente
+							if(pj1 == "Kai'Sa"){
+								pj1 = "Kaisa";		
+							}else if(pj2 == "Kai'Sa"){
+								pj2 = "Kaisa"
+							}else if(pj3 == "Kai'Sa"){
+								pj3 = "Kaisa";
+							}
+							document.getElementById("masJugado1").src = urlImgCampeones + pj1.split(' ').join('').split("'").join('') + ".png";
+							document.getElementById("masJugado2").src = urlImgCampeones + pj2.split(' ').join('').split("'").join('') + ".png";
+							document.getElementById("masJugado3").src = urlImgCampeones + pj3.split(' ').join('').split("'").join('') + ".png";
 						});
 
 					}
