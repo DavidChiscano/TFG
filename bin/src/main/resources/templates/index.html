@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es" class="bg-gray-900">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>David - TFG</title>
+
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.14.3/dist/full.css"
+	rel="stylesheet" type="text/css" />
+
+<script defer src="https://unpkg.com/alpinejs@3.2.3/dist/cdn.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" th:href="@{/css/output.css}">
+</head>
+<body class="w-full">
+	<h1 class="text-2xl text-green-500"
+		th:text="'Usuario: ' + ${session.usuario.nombre}"></h1>
+	<!-- page -->
+	<main
+		class="flex flex-row my-10 items-center justify-center flex flex-around">
+		<!-- component -->
+		<div class="flex rounded bg-white w-[30rem]" x-data="{ search: '' }">
+			<input type="search" id="buscador"
+				class="w-full border-none bg-transparent px-4 py-1 text-gray-900 outline-none focus:outline-none"
+				placeholder="Nombre de invocador..." x-model="search" />
+			<button type="button" id="btnBuscar"
+				class="m-2 rounded px-4 px-4 py-2 font-semibold text-gray-100"
+				:class="(search.length > 0) ? 'bg-purple-500' : 'bg-gray-500 cursor-not-allowed'"
+				:disabled="search.length == 0">Buscar</button>
+		</div>
+	</main>
+	<div class="flex mx-auto justify-center align-center" id="datosCuenta">
+		<div
+			class="max-w-sm w-3/4 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+			<div class="flex justify-end px-2 pt-4"></div>
+			<div class="flex flex-col items-center pb-10">
+				<img id="imgPerfil" class="mb-3 w-24 h-24 rounded-full shadow-lg"
+					src="" alt="Imagen cuenta">
+				<h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"
+					id="cuentaEncontrada"></h5>
+				<span class="text-sm text-gray-500 dark:text-gray-400 mb-3"
+					id="nivelCuenta"></span>
+				<div class="stats shadow">
+					<a id="ver"
+						class="stat place-items-center dark:text-white dark:border-gray-600 dark:hover:bg-purple-500 dark:hover:border-gray-700 dark:focus:ring-gray-700">Ver</a>
+					<a id="addCuenta"
+						class="stat place-items-center dark:text-white dark:border-gray-600 dark:hover:bg-purple-500 dark:hover:border-gray-700 dark:focus:ring-gray-700">Añadir</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- PERFIL -->
+	<div
+		class="max-w-xs w-3/4 mx-auto bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+		<div class="flex justify-end px-2 pt-4"></div>
+		<div class="flex flex-col items-center pb-10">
+			<img id="logoDivision" class="mb-3 w-24 h-24 rounded-full shadow-lg"
+				src="" alt="logo division"> <span
+				class="text-sm text-gray-500 dark:text-gray-400" id="tier"></span> <span
+				class="text-sm text-gray-500 dark:text-gray-400" id="rank"></span> <span
+				class="text-sm text-gray-500 dark:text-gray-400" id="wins"></span> <span
+				class="text-sm text-gray-500 dark:text-gray-400" id="losses"></span>
+		</div>
+	</div>
+	<div class="flex mx-auto justify-center align-center">
+
+		<div
+			class="max-w-auto w-3/4 my-auto flex flex-wrap bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+			<figure>
+				<img class="flex flex-column" id="masJugado1" src="#"
+					alt='mas jugados' />
+				<span class="text-sm text-gray-500 dark:text-gray-400"
+					id="puntosPj1"></span>
+			</figure>
+			<div class="card-body">
+				<h2 class="card-title" id="nombrePj1"></h2>
+				<p id="lorePj1"></p>
+				<p id="tagsPj1"></p>
+			</div>
+
+			<figure>
+				<img id="masJugado2" src="#" alt='mas jugados' />
+				<span class="text-sm text-gray-500 dark:text-gray-400"
+					id="puntosPj2"></span>
+			</figure>
+			<div class="card-body">
+				<h2 class="card-title" id="nombrePj2"></h2>
+				<p id="lorePj2"></p>
+				<p id="tagsPj2"></p>
+			</div>
+
+			<figure>
+				<img id="masJugado3" src="#" alt='mas jugados' />
+				<span class="text-sm text-gray-500 dark:text-gray-400"
+					id="puntosPj3"></span>
+			</figure>
+			<div class="card-body">
+				<h2 class="card-title" id="nombrePj3"></h2>
+				<p id="lorePj3"></p>
+				<p id="tagsPj3"></p>
+			</div>
+		</div>
+	</div>
+	<div class="overflow-x-auto w-full">
+		<table class="table mx-auto">
+			<!-- head -->
+			<thead>
+				<tr>
+					<th>Campeon</th>
+					<th>Modo</th>
+					<th>KDA</th>
+					<th>Victoria</th>
+					<th>Build</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- row 1 -->
+				<tr>
+					<td>
+						<div class="flex items-center space-x-3">
+							<div class="avatar">
+								<div class="mask mask-squircle w-12 h-12">
+									<img id="avatar1" src="" alt="Avatar" />
+								</div>
+							</div>
+						</div>
+					</td>
+					<td id="modoPartida1"></td>
+					<td id="kda1"></td>
+					<td id="resultadoPartida1"></td>
+					<td>
+						<div class="flex items-center space-x-3">
+							<div class="avatar">
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p1item0" src="" alt="item0" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p1item1" src="" alt="item1" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p1item2" src="" alt="item2" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p1item3" src="" alt="item3" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p1item4" src="" alt="item4" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p1item5" src="" alt="item5" />
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<!-- row 2 -->
+				<tr>
+					<td>
+						<div class="flex items-center space-x-3">
+							<div class="avatar">
+								<div class="mask mask-squircle w-12 h-12">
+									<img id="avatar2" src="" alt="Avatar" />
+								</div>
+							</div>
+						</div>
+					</td>
+					<td id="modoPartida2"></td>
+					<td id="kda2"></td>
+					<td id="resultadoPartida2"></td>
+					<td>
+						<div class="flex items-center space-x-3">
+							<div class="avatar">
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p2item0" src="" alt="item0" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p2item1" src="" alt="item1" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p2item2" src="" alt="item2" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p2item3" src="" alt="item3" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p2item4" src="" alt="item4" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p2item5" src="" alt="item5" />
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<!-- row 3 -->
+				<tr>
+					<td>
+						<div class="flex items-center space-x-3">
+							<div class="avatar">
+								<div class="mask mask-squircle w-12 h-12">
+									<img id="avatar3" src="" alt="Avatar" />
+								</div>
+							</div>
+						</div>
+					</td>
+					<td id="modoPartida3"></td>
+					<td id="kda3"></td>
+					<td id="resultadoPartida3"></td>
+					<td>
+						<div class="flex items-center space-x-3">
+							<div class="avatar">
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p3item0" src="" alt="item0" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p3item1" src="" alt="item1" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p3item2" src="" alt="item2" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p3item3" src="" alt="item3" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p3item4" src="" alt="item4" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="p3item5" src="" alt="item5" />
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<!-- row 4 -->
+				<tr>
+					<td>
+						<div class="flex items-center space-x-3">
+							<div class="avatar">
+								<div class="mask mask-squircle w-12 h-12">
+									<img id="avatar4" src="" alt="Avatar" />
+								</div>
+							</div>
+						</div>
+					</td>
+					<td id="modoPartida4"></td>
+					<td id="kda4"></td>
+					<td id="resultadoPartida4"></td>
+					<td>
+						<div class="flex items-center space-x-3">
+							<div class="avatar">
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="item0" src="" alt="item0" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="item1" src="" alt="item1" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="item2" src="" alt="item2" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="item3" src="" alt="item3" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="item4" src="" alt="item4" />
+								</div>
+								<div class="mask mask-squircle w-10 h-10">
+									<img id="item5" src="" alt="item5" />
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+
+	<!-- CUENTAS -->
+
+	<!-- MAS JUGADOS -->
+
+	<!-- component -->
+
+	<script th:src="@{js/ajax.js}"></script>
+</body>
+</html>

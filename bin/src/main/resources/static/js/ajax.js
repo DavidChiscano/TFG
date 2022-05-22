@@ -1,6 +1,6 @@
 //VARS
-const RIOT_TOKEN = "?api_key=RGAPI-fe60c655-a8c6-4a02-a0bd-a3313d0a0d1c";
-const RIOT_TOKEN2 = "RGAPI-fe60c655-a8c6-4a02-a0bd-a3313d0a0d1c";
+const RIOT_TOKEN = "?api_key=RGAPI-42c58833-1a33-43d8-ac6d-529c6399d9ef";
+const RIOT_TOKEN2 = "RGAPI-42c58833-1a33-43d8-ac6d-529c6399d9ef";
 var nombre = '';
 var encryptedSummonerId = '';
 var puuid = '';
@@ -9,7 +9,6 @@ var puuid = '';
 const urlNombreCuenta = 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/';
 const urlPerfil = 'https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/';
 const urlMaestria = 'https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/';
-const urlImgPerfil = 'http://ddragon.leagueoflegends.com/cdn/12.9.1/img/profileicon/';
 const urlImgCampeones = 'http://ddragon.leagueoflegends.com/cdn/12.9.1/img/champion/';
 const urlItemIcons = 'http://ddragon.leagueoflegends.com/cdn/12.9.1/img/item/';
 const urlDatosMaestria = 'https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/';
@@ -37,7 +36,7 @@ document.getElementById("btnBuscar").onclick = function() {
 			let nombreCuenta = document.getElementById("cuentaEncontrada");
 			let nivelCuenta = document.getElementById("nivelCuenta");
 			let imgPerfil = document.getElementById("imgPerfil");
-			imgPerfil.src = urlImgPerfil + data.profileIconId + ".png";
+			imgPerfil.src = "http://ddragon.leagueoflegends.com/cdn/12.9.1/img/profileicon/" + data.profileIconId + ".png";
 			nombreCuenta.textContent = data.name;
 			nivelCuenta.textContent = 'Nivel: ' + data.summonerLevel;
 			encryptedSummonerId = data.id;
@@ -69,7 +68,6 @@ function obtenerLogoDivision(data) {
 	}
 	document.getElementById("tier").textContent = data[0].tier;
 	document.getElementById("rank").textContent = data[0].rank;
-	document.getElementById("lps").textContent = "LP: " + data[0].leaguePoints;
 	document.getElementById("wins").textContent = "Victorias: " + data[0].wins;
 	document.getElementById("losses").textContent = "Derrotas: " + data[0].losses;
 }
@@ -298,8 +296,8 @@ document.getElementById("ver").onclick = function() {
 						loadJSON(function(response) { //Cargar el fichero json local
 							//Convertir a json la respuesta
 							var jsonresponse = JSON.parse(response);
-							var championsId = [];
-							championsId.push(jsonresponse.data);
+							var test = [];
+							test.push(jsonresponse.data);
 							//Almaceno el id de los personajes con mas maestria de la cuenta
 							var ids = [];
 							for (let i = 0; i < 3; i++) {
@@ -311,7 +309,7 @@ document.getElementById("ver").onclick = function() {
 							document.getElementById("puntosPj2").textContent = 'Puntos: ' + dataMastery[1].championPoints;
 							document.getElementById("puntosPj3").textContent = 'Puntos: ' + dataMastery[2].championPoints;
 							//Array con la info de los campeones mapeado a mi formato para usarlo
-							var arrayMapped = championsId.map(x => Object.values(x)).flat();
+							var arrayMapped = test.map(x => Object.values(x)).flat();
 							//Recorrer el array para obtener los 3 nombres de los campeones con mas maestria de la cuenta
 							var pj1 = "";
 							var pj2 = "";
