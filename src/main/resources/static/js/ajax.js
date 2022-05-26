@@ -1,6 +1,6 @@
 //VARS
-const RIOT_TOKEN = "?api_key=RGAPI-8c0679a1-4ece-42d9-8d33-1ea63ce00881";
-const RIOT_TOKEN2 = "RGAPI-8c0679a1-4ece-42d9-8d33-1ea63ce00881";
+const RIOT_TOKEN = "?api_key=RGAPI-120ac182-646e-4b82-a17e-1bdfebef09b2";
+const RIOT_TOKEN2 = "RGAPI-120ac182-646e-4b82-a17e-1bdfebef09b2";
 var nombre = '';
 var encryptedSummonerId = '';
 var puuid = '';
