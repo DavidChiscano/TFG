@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	                            "/webjars/**").permitAll()
 	                    .antMatchers("/proyecto/crear").hasAuthority("manager")
 	                    .antMatchers("/proyecto/borrar/{id}").hasAuthority("manager")
-	                    .antMatchers("/proyecto/perfil/{id}").hasAnyAuthority("manager","trabajador")
+	                    .antMatchers("/index/guardarCuenta").hasAnyAuthority("USER","ADMIN")
 	                    .antMatchers("/proyecto/buscar/{nombreProyecto}").hasAnyAuthority("manager","trabajador")
 	                    
 	                    .antMatchers("/tarea/index").hasAnyAuthority("manager","trabajador")
@@ -47,6 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	                    .anyRequest().authenticated()
 	                .and()
+	                
+	                
+	                
 	                .formLogin()
 	                    .loginPage("/login")
 	                    .loginProcessingUrl("/login")
@@ -62,8 +65,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	                    .logoutUrl("/logout")
 	                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 	                    .logoutSuccessUrl("/login?logout")
-	                    .permitAll();
-	                http.csrf().ignoringAntMatchers("/img/**");
+	                    .permitAll()
+	        		.and()
+	        		.csrf().disable().cors();
 	    }
 	   
 	    

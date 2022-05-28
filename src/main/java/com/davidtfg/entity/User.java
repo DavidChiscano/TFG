@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "usuarios")
 public class User implements Serializable{
@@ -35,9 +37,9 @@ public class User implements Serializable{
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE },mappedBy="usuarios")
 	private Set<Rol> roles = new HashSet<>();
-	
-	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "cuentaslol", orphanRemoval = true)
-	private Set<CuentaLoL> cuentaslol = new HashSet<CuentaLoL>();
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE },mappedBy = "users")
+	private Set<CuentaLoL> cuentaslol = new HashSet<>();
 
 	//CONSTRUCTORES
 	public User(Long id, String nombre, String passwd, String email,String fechaNacimiento) {
@@ -49,6 +51,14 @@ public class User implements Serializable{
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	
+	public String getNombreUsuario() {
+		return nombreUsuario;
+	}
+
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+
 	public User() {
 		super();
 	}
@@ -127,6 +137,16 @@ public class User implements Serializable{
 	public void eliminarRol(Rol rol) {
 		this.roles.remove(rol);
 		rol.getUsuarios().remove(this);
+	}
+	
+	public boolean addCuenta(CuentaLoL cuenta) {
+		cuenta.addUser(this);
+		return getCuentasLoL().add(cuenta);
+	}
+	
+	public void eliminarCuenta(CuentaLoL cuenta) {
+		this.cuentaslol.remove(cuenta);
+		cuenta.getUsers().remove(this);
 	}
 	
 

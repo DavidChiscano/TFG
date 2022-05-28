@@ -1,10 +1,11 @@
 //VARS
 const RIOT_TOKEN = "?api_key=RGAPI-efeb5567-12b8-4391-9aa3-cc3dc0d5ca1f";
-const RIOT_TOKEN2 = "RGAPI-120ac182-646e-4b82-a17e-1bdfebef09b2";
+const RIOT_TOKEN2 = "RGAPI-efeb5567-12b8-4391-9aa3-cc3dc0d5ca1f";
 var nombre = '';
 var encryptedSummonerId = '';
 var puuid = '';
-
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
 //URL's API RIOT'
 const urlNombreCuenta = 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/';
 const urlPerfil = 'https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/';
@@ -16,6 +17,33 @@ const urlDatosMaestria = 'https://euw1.api.riotgames.com/lol/champion-mastery/v4
 const urlObtenerIdPartida = 'https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/'
 const urlObtenerIdPartida2 = '/ids?count=5&api_key=';
 const urlPartidas = 'https://europe.api.riotgames.com/lol/match/v5/matches/'
+document.body.style.overflow = 'hidden';
+//PERSISTIR CUENTA EN LA BBDD
+function persistirCuenta() {
+	var csrfToken = $("[name='_csrf']").attr("value");
+		fetch('/index/guardarCuenta', {
+			headers: {
+				"Content-Type": "application/json; charset=utf-8",
+				 credentials: 'same-origin',
+				'X-CSRF-TOKEN': csrfToken
+			},
+			method: 'POST',
+			body: JSON.stringify({usuario: document.getElementById("cuentaEncontrada").textContent})
+		})
+			.then(function(response) {
+				if (response.ok) {
+					return response.json()
+				} else {
+					throw "Error";
+				}
+			}).then(data => {
+				alert("Cuenta guardada correctamente");
+			})
+	}
+
+document.getElementById("addCuenta").onclick = function() {
+	persistirCuenta();
+}
 
 //BUSCAR INVOCADOR
 document.getElementById("btnBuscar").onclick = function() {
@@ -33,7 +61,8 @@ document.getElementById("btnBuscar").onclick = function() {
 			}
 		})
 		.then(function(data) {
-			document.getElementById("datosCuenta").classList.remove("hidden");
+			document.getElementById("datosCuenta").classList.remove("invisible");
+			document.getElementById("logo").classList.replace("mt-48", "mt-10");
 			let nombreCuenta = document.getElementById("cuentaEncontrada");
 			let nivelCuenta = document.getElementById("nivelCuenta");
 			let imgPerfil = document.getElementById("imgPerfil");
@@ -255,7 +284,6 @@ function loadJSON(callback) {
 	xobj.open('GET', 'js/champions.json', true);
 	xobj.onreadystatechange = function() {
 		if (xobj.readyState == 4 && xobj.status == "200") {
-			// .open will NOT return a value but simply returns undefined in async mode so use a callback
 			callback(xobj.responseText);
 		}
 	}
@@ -277,6 +305,12 @@ document.getElementById("ver").onclick = function() {
 			}
 		})
 		.then(function(data) {
+			document.getElementById("infoLiga").classList.remove("invisible");
+			document.getElementById("masJugados").classList.remove("invisible");
+			document.getElementById("spanMasJugados").classList.remove("invisible");
+			document.getElementById("spanUltimasPartidas").classList.remove("invisible");
+			document.getElementById("ultimasPartidas").classList.remove("invisible");
+			document.body.style.overflow = 'visible';
 			obtenerLogoDivision(data);
 			//OBTENER MAESTRIA PERSONAJES		
 			fetch(urlMaestria + encryptedSummonerId + RIOT_TOKEN)

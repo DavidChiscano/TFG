@@ -4,21 +4,24 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
 <title>David - TFG</title>
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="https://cdn.jsdelivr.net/npm/daisyui@2.14.3/dist/full.css"
 	rel="stylesheet" type="text/css" />
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script defer src="https://unpkg.com/alpinejs@3.2.3/dist/cdn.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" th:href="@{/css/output.css}">
 </head>
 
-<body class="w-full">
+<body class="w-full h-3/6">
 	<!-- USUARIO -->
 	<!-- The button to open modal -->
-
-
+   <input type="hidden"
+          name="${_csrf.parameterName}"
+          value="${_csrf.token}"/>
 	<div class="navbar bg-base-300 rounded-box">
 		<div class="flex-1 px-2 lg:flex-none">
 			<a class="text-lg font-bold">Usuario logueado: </a>
@@ -44,7 +47,7 @@
 	</div>
 
 	<!-- BUSCADOR -->
-	<img class="object-cover h-48 w-96 mx-auto mt-10"
+	<img id="logo" class="object-cover h-48 w-96 mx-auto mt-48"
 		src="/img/logo_prev_ui.png" />
 
 	<main
@@ -62,10 +65,8 @@
 
 	<div>
 		<!-- DATOS CUENTA BUSCADA -->
-		<div class="flex flex-row w-2/2 items-center justify-center"
-			id="datosCuenta">
-			<div
-				class="max-w-sm h-64 w-3/4 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+		<div class="flex flex-row w-2/2 items-center justify-center">
+			<div id="datosCuenta" class="max-w-sm h-64 w-3/4 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 invisible ">
 				<div class="flex justify-end px-2 pt-4"></div>
 				<div class="flex flex-col items-center pb-10">
 					<img id="imgPerfil" class="mb-3 w-24 h-24 rounded-full shadow-lg"
@@ -77,8 +78,11 @@
 					<div class="stats shadow">
 						<a id="ver"
 							class="stat place-items-center dark:text-white dark:border-gray-600 dark:hover:bg-purple-500 dark:hover:border-gray-700 dark:focus:ring-gray-700">Ver</a>
-						<a id="addCuenta" type="submit"
+					
+					<form class="cuenta" id="formAddCuenta" th:action="@{/index/guardarCuenta}" method="POST">
+					<a id="addCuenta" type="submit"
 							class="stat place-items-center dark:text-white dark:border-gray-600 dark:hover:bg-purple-500 dark:hover:border-gray-700 dark:focus:ring-gray-700">Añadir</a>
+					</form>
 					</div>
 				</div>
 			</div>
@@ -86,8 +90,7 @@
 		</div>
 		<div class="flex flex-row w-2/2 items-center justify-center">
 			<!-- DATOS LP CUENTA -->
-			<div
-				class="max-w-sm h-64 w-3/4 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+			<div class="max-w-sm h-64 w-3/4 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 invisible" id="infoLiga">
 				<div class="flex justify-end px-2 pt-4 mx-auto"></div>
 				<div class="flex flex-col items-center pb-10 mx-auto">
 					<img id="logoDivision"
@@ -101,12 +104,12 @@
 				</div>
 			</div>
 		</div>
-		<span class="flex justify-center items-center text-center pt-12">Campeones
+		<span id="spanMasJugados" class="flex justify-center items-center text-center pt-12 invisible">Campeones
 			mas jugados</span>
 
 		<div class="flex mx-auto w-2/2 justify-center align-center">
-			<div
-				class="max-w-6xl w-2/2 my-auto flex flex-wrap bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+			<div id="masJugados"
+				class="max-w-6xl w-2/2 my-auto flex flex-wrap bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 invisible">
 				<figure>
 					<img class="w-24 h-24" id="masJugado1" src="#" alt='mas jugados' />
 					<span class="text-sm text-gray-500 dark:text-gray-400"
@@ -146,8 +149,8 @@
 
 
 		<!-- TABLA -->
-		<span class="flex justify-center pt-12">Ultimas 4 partidas</span>
-		<div class="overflow-x-auto w-3/2 mb-10">
+		<span id="spanUltimasPartidas" class="flex justify-center pt-12 invisible">Ultimas 4 partidas</span>
+		<div id="ultimasPartidas" class="overflow-x-auto w-3/2 mb-10 invisible">
 			<table class="table mx-auto">
 				<!-- head -->
 				<thead>

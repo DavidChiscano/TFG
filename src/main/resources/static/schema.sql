@@ -26,3 +26,10 @@ CREATE TABLE IF NOT EXISTS usuario_rol(
 	 FOREIGN KEY (id_rol) REFERENCES roles(id_rol),
      FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario)
      );
+CREATE TABLE IF NOT EXISTS usuario_cuentas(
+	 id_cuenta bigint not null, 
+	 id_usuario bigint not null,
+     primary key(id_cuenta, id_usuario),
+	 FOREIGN KEY (id_cuenta) REFERENCES cuentaslol(id_cuenta),
+     FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario)
+     );

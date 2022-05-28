@@ -1,6 +1,7 @@
 package com.davidtfg.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,20 +22,22 @@ public class Index {
 	@Autowired
 	CuentaLoLService cuentaService;
 
-	
 	@GetMapping("/index")
 	public String getIndex(Model model, HttpServletRequest request) {
 		model.addAttribute("usuario", request.getAttribute("usuario.nombre"));
 		return "index";
 	}
-	
-	//CREAR OFERTA
+
+	// CREAR OFERTA
 	@PostMapping("/index/guardarCuenta")
-	public ResponseEntity<CuentaLoL> obtenerCuenta(@RequestBody CuentaLoL cuentalol) {	
-		CuentaLoL addCuenta = cuentaService.addCuenta(cuentalol);
+	public ResponseEntity<CuentaLoL> obtenerCuenta(@RequestBody Map<String, String> json) {
 		
-		ResponseEntity<CuentaLoL> resp = new ResponseEntity<CuentaLoL>(addCuenta, HttpStatus.OK);
+		//CuentaLoL cuenta = cuentaService.addCuenta(new CuentaLoL(json.get("usuario")));
+		CuentaLoL cuenta = new CuentaLoL();
+		cuenta.setUsuario(json.get("usuario"));
+		cuentaService.addCuenta(cuenta);
+		ResponseEntity<CuentaLoL> resp = new ResponseEntity<CuentaLoL>(cuenta, HttpStatus.OK);
 		return resp;
-    }
+	}
 
 }
