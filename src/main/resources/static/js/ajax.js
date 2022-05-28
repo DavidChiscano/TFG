@@ -1,5 +1,5 @@
 //VARS
-const RIOT_TOKEN = "?api_key=RGAPI-120ac182-646e-4b82-a17e-1bdfebef09b2";
+const RIOT_TOKEN = "?api_key=RGAPI-efeb5567-12b8-4391-9aa3-cc3dc0d5ca1f";
 const RIOT_TOKEN2 = "RGAPI-120ac182-646e-4b82-a17e-1bdfebef09b2";
 var nombre = '';
 var encryptedSummonerId = '';

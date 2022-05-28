@@ -1,7 +1,5 @@
 package com.davidtfg.services;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +13,11 @@ import com.davidtfg.model.CuentaDAO;
 public class CuentaLoLServiceImpl implements CuentaLoLService {
 	@Autowired
 	CuentaDAO cuentaDao;
-	
+
 	@Override
-	public List<CuentaLoL> obtenerTodas() {
-		return cuentaDao.findAll();
+	public CuentaLoL addCuenta(CuentaLoL cuenta) {
+		return cuentaDao.save(cuenta);
 	}
+	
 
 }
