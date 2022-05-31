@@ -1,6 +1,6 @@
 //VARS
-const RIOT_TOKEN = "?api_key=RGAPI-efeb5567-12b8-4391-9aa3-cc3dc0d5ca1f";
-const RIOT_TOKEN2 = "RGAPI-efeb5567-12b8-4391-9aa3-cc3dc0d5ca1f";
+const RIOT_TOKEN = "?api_key=RGAPI-5a534f82-373a-442a-9f3a-aa830c8b712c";
+const RIOT_TOKEN2 = "RGAPI-5a534f82-373a-442a-9f3a-aa830c8b712c";
 var nombre = '';
 var encryptedSummonerId = '';
 var puuid = '';
@@ -21,25 +21,25 @@ document.body.style.overflow = 'hidden';
 //PERSISTIR CUENTA EN LA BBDD
 function persistirCuenta() {
 	var csrfToken = $("[name='_csrf']").attr("value");
-		fetch('/index/guardarCuenta', {
-			headers: {
-				"Content-Type": "application/json; charset=utf-8",
-				 credentials: 'same-origin',
-				'X-CSRF-TOKEN': csrfToken
-			},
-			method: 'POST',
-			body: JSON.stringify({usuario: document.getElementById("cuentaEncontrada").textContent})
+	fetch('/index/guardarCuenta', {
+		headers: {
+			"Content-Type": "application/json; charset=utf-8",
+			credentials: 'same-origin',
+			'X-CSRF-TOKEN': csrfToken
+		},
+		method: 'POST',
+		body: JSON.stringify({ usuario: document.getElementById("cuentaEncontrada").textContent })
+	})
+		.then(function(response) {
+			if (response.ok) {
+				return response.json()
+			} else {
+				throw "Error";
+			}
+		}).then(data => {
+			alert("Cuenta guardada correctamente");
 		})
-			.then(function(response) {
-				if (response.ok) {
-					return response.json()
-				} else {
-					throw "Error";
-				}
-			}).then(data => {
-				alert("Cuenta guardada correctamente");
-			})
-	}
+}
 
 document.getElementById("addCuenta").onclick = function() {
 	persistirCuenta();
@@ -289,7 +289,15 @@ function loadJSON(callback) {
 	}
 	xobj.send(null);
 }
-
+//MOSTRAR DATOS EN EL DOM
+function mostrarElementos() {
+	document.getElementById("infoLiga").classList.remove("invisible");
+	document.getElementById("masJugados").classList.remove("invisible");
+	document.getElementById("spanMasJugados").classList.remove("invisible");
+	document.getElementById("spanUltimasPartidas").classList.remove("invisible");
+	document.getElementById("ultimasPartidas").classList.remove("invisible");
+	document.body.style.overflow = 'visible';
+}
 //VER PERFIL DETALLADO
 document.getElementById("ver").onclick = function() {
 	fetch(urlPerfil + encryptedSummonerId + RIOT_TOKEN)
@@ -305,13 +313,8 @@ document.getElementById("ver").onclick = function() {
 			}
 		})
 		.then(function(data) {
-			document.getElementById("infoLiga").classList.remove("invisible");
-			document.getElementById("masJugados").classList.remove("invisible");
-			document.getElementById("spanMasJugados").classList.remove("invisible");
-			document.getElementById("spanUltimasPartidas").classList.remove("invisible");
-			document.getElementById("ultimasPartidas").classList.remove("invisible");
-			document.body.style.overflow = 'visible';
 			obtenerLogoDivision(data);
+			mostrarElementos();
 			//OBTENER MAESTRIA PERSONAJES		
 			fetch(urlMaestria + encryptedSummonerId + RIOT_TOKEN)
 				.then((resp) => {
@@ -385,13 +388,13 @@ document.getElementById("ver").onclick = function() {
 								}
 							}
 							console.log(arrayMapped);
-							
+
 							//Check si es este personaje para quitar el caracter del nombre y cargar los datos correctamente
-							if(pj1 == "Kai'Sa"){
-								pj1 = "Kaisa";		
-							}else if(pj2 == "Kai'Sa"){
+							if (pj1 == "Kai'Sa") {
+								pj1 = "Kaisa";
+							} else if (pj2 == "Kai'Sa") {
 								pj2 = "Kaisa"
-							}else if(pj3 == "Kai'Sa"){
+							} else if (pj3 == "Kai'Sa") {
 								pj3 = "Kaisa";
 							}
 							document.getElementById("masJugado1").src = urlImgCampeones + pj1.split(' ').join('').split("'").join('') + ".png";
