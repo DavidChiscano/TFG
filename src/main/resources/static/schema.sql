@@ -16,8 +16,7 @@ CREATE TABLE IF NOT EXISTS usuarios(
 );
 CREATE TABLE IF NOT EXISTS cuentaslol(
 	 id_cuenta bigint not null primary key auto_increment,
-	 usuario varchar(50) not null,
-	 FOREIGN KEY(id_cuenta) REFERENCES usuarios(id_usuario)
+	 usuario varchar(50) not null
 );	 
 CREATE TABLE IF NOT EXISTS usuario_rol(
 	 id_rol bigint not null, 
