@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class Perfil {
 	@GetMapping("/perfil/{id}")
-	public String getIndex() {;
+	public String getPerfil() {
 		return "perfil";
 	}
 }

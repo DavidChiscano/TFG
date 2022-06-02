@@ -487,21 +487,15 @@ document.getElementById("ver").onclick = function() {
 							}
 						})
 						.then(function(data) {
-
 							var arrayParticipantes = [];
 							arrayParticipantes.push(data.info.participants);
 							var arrayParticipantesF = arrayParticipantes.map(x => Object.values(x)).flat();
 							console.log(arrayParticipantesF);
 							console.log(data);
-
 							obtenerItemsPartida4(arrayParticipantesF);
-
 							document.getElementById("modoPartida4").textContent = data.info.gameMode;
-
 						})
 				})
-
-
 		})
 		.catch(function(error) {
 			console.log(error);

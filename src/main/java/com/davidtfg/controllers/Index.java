@@ -1,6 +1,5 @@
 package com.davidtfg.controllers;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,8 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.davidtfg.entity.CuentaLoL;
+import com.davidtfg.entity.User;
 import com.davidtfg.services.CuentaLoLService;
 
 @Controller
@@ -23,16 +24,14 @@ public class Index {
 	CuentaLoLService cuentaService;
 
 	@GetMapping("/index")
-	public String getIndex(Model model, HttpServletRequest request) {
-		model.addAttribute("usuario", request.getAttribute("usuario.nombre"));
+	public String getIndex(@SessionAttribute("usuario") User usuario, Model model, HttpServletRequest request) {
+		request.getSession().setAttribute("usuario",usuario);
 		return "index";
 	}
 
-	// CREAR OFERTA
+	// Guardar cuenta en base de datos
 	@PostMapping("/index/guardarCuenta")
 	public ResponseEntity<CuentaLoL> obtenerCuenta(@RequestBody Map<String, String> json) {
-		
-		//CuentaLoL cuenta = cuentaService.addCuenta(new CuentaLoL(json.get("usuario")));
 		CuentaLoL cuenta = new CuentaLoL();
 		cuenta.setUsuario(json.get("usuario"));
 		cuentaService.addCuenta(cuenta);

@@ -1,20 +1,82 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil - David TFG</title>
-    <link rel="stylesheet" th:href="@{/css/output.css}">
-</head>
-<body>
-<!-- component -->
-<!-- page -->
-<main class="mx-auto flex min-h-screen w-full items-center justify-center bg-gray-900 text-white">
-  <!-- component -->
-<form role="form" th:action="@{/login}" method="POST">
 
-</form>
-</main>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Perfil - David TFG</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/daisyui@2.15.2/dist/full.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.tailwindcss.com"></script>
+
+	<link rel="stylesheet" th:href="@{/css/output.css}">
+</head>
+
+<body>
+	<div class="navbar bg-base-300 rounded-box">
+		<div class="flex-1 px-1 lg:flex-none">
+			<a class="text-lg font-bold pl-5 pr-10" th:href="@{/index}">Inicio </a>
+			<a class="text-lg font-bold">Usuario logueado: </a>
+		</div>
+		<div class="flex justify-start flex-1 px-2">
+			<div class="flex items-stretch">
+				<div class="dropdown dropdown-end">
+					<label tabindex="0"
+						class="text-lg font-bold stat place-items-center dark:text-white dark:border-gray-600 dark:hover:bg-purple-500 dark:hover:border-gray-700 dark:focus:ring-gray-700"
+						th:text="${session.usuario.nombre}"></label>
+					<ul tabindex="0" class="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+						<!-- The button to open modal -->
+						<a class="btn modal-button" th:href="@{/perfil/{id}(id=${session.usuario.id_usuario})}">Ver perfil</a>
+						<a class="btn modal-button" th:href="@{/logout}">LogOut</a>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<main class="mx-auto flex min-h-screen w-full items-center justify-center bg-gray-900 text-white mt-48">
+		<div class="w-screen h-screen bg-white flex flex-row flex-wrap p-3">
+			<div class="mx-auto w-2/3">
+				<!-- Profile Card -->
+				<div class="rounded-lg shadow-lg bg-gray-600 w-full flex flex-row flex-wrap p-3 antialiased" style="
+  background-image: url('https://images.unsplash.com/photo-1578836537282-3171d77f8632?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80');
+  background-repeat: no-repat;
+  background-size: cover;
+  background-blend-mode: multiply;
+">
+					<div class="md:w-1/3 w-full">
+						<img class="rounded-lg shadow-lg antialiased"
+							src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
+					</div>
+
+
+					<div class="md:w-2/3 w-full px-3 flex flex-row flex-wrap">
+						<div class="w-full text-right text-gray-700 font-semibold relative pt-3 md:pt-0">
+							<div class="text-2xl text-white leading-tight" th:text="${session.usuario.nombre}">Admin
+								User</div>
+							<div class="text-normal text-gray-300 hover:text-gray-400 cursor-pointer"><span
+									class="border-b border-dashed border-gray-500 pb-1">Región del juego: EUW</span>
+							</div>
+							<div
+								class="text-sm text-gray-300 hover:text-gray-400 cursor-pointer md:absolute pt-3 md:pt-0 bottom-0 right-0">
+								Last Seen: <b>2 days ago</b></div>
+							<div class="w-full pl-20 text-left text-gray-700 font-semibold relative pt-3 md:pt-0">
+								<div class="text-2xl text-white leading-tight">Nombre: </div>
+								<div class="text-1xl text-white leading-tight" th:text="${session.usuario.nombre}"></div>
+								<br>
+								<div class="text-2xl text-white leading-tight">Email: </div>
+								<div class="text-1xl text-white leading-tight" th:text="${session.usuario.email}"></div>
+								<br>
+								<div class="text-2xl text-white leading-tight">Fecha de nacimiento: </div>
+								<div class="text-1xl text-white leading-tight" th:text="${session.usuario.fechaNacimiento}"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Profile Card -->
+			</div>
+		</div>
+	</main>
 </body>
+
 </html>
