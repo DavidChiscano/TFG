@@ -248,7 +248,7 @@ function obtenerItemsPartida3(arrayParticipantesF) {
 	}
 }
 
-//OBTENER ITEMS PARTIDA 4 
+//OBTENER ITEMS PARTIDA 4 y 
 function obtenerItemsPartida4(arrayParticipantesF) {
 	let nombreCuenta = document.getElementById("cuentaEncontrada").innerText;
 	for (let i = 0; i < arrayParticipantesF.length; i++) {
