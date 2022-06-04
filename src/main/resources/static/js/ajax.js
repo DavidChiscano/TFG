@@ -1,6 +1,6 @@
 //VARS
-const RIOT_TOKEN = "?api_key=RGAPI-0f43b806-2b69-4084-800d-42ada568ce50";
-const RIOT_TOKEN2 = "RGAPI-0f43b806-2b69-4084-800d-42ada568ce50";
+const RIOT_TOKEN = "?api_key=RGAPI-a6585bfd-ceb3-41d6-99d3-f649d4ad7748";
+const RIOT_TOKEN2 = "RGAPI-a6585bfd-ceb3-41d6-99d3-f649d4ad7748";
 var nombre = '';
 var encryptedSummonerId = '';
 var puuid = '';
@@ -18,6 +18,7 @@ const urlObtenerIdPartida = 'https://europe.api.riotgames.com/lol/match/v5/match
 const urlObtenerIdPartida2 = '/ids?count=5&api_key=';
 const urlPartidas = 'https://europe.api.riotgames.com/lol/match/v5/matches/'
 document.body.style.overflow = 'hidden';
+
 //PERSISTIR CUENTA EN LA BBDD
 function persistirCuenta() {
 	var csrfToken = $("[name='_csrf']").attr("value");
@@ -61,6 +62,7 @@ document.getElementById("btnBuscar").onclick = function() {
 			}
 		})
 		.then(function(data) {
+			ocultarCampos();
 			document.getElementById("datosCuenta").classList.remove("invisible");
 			document.getElementById("logo").classList.replace("mt-48", "mt-10");
 			let nombreCuenta = document.getElementById("cuentaEncontrada");
@@ -77,8 +79,14 @@ document.getElementById("btnBuscar").onclick = function() {
 			console.log(error);
 		});
 }
-function limpiarCampos() {
-
+//OCULTAR CAMPOS
+function ocultarCampos() {
+	document.body.style.overflow = 'hidden';
+	document.getElementById("infoLiga").classList.add("invisible");
+	document.getElementById("masJugados").classList.add("invisible");
+	document.getElementById("spanMasJugados").classList.add("invisible");
+	document.getElementById("spanUltimasPartidas").classList.add("invisible");
+	document.getElementById("ultimasPartidas").classList.add("invisible");
 }
 
 //OBTENER LOGO DIVISION
@@ -88,6 +96,14 @@ function obtenerLogoDivision(data) {
 		document.getElementById("logoDivision").src = '/img/Emblem_Silver.png';
 		return;
 	}
+	else if (data[0].tier == 'IRON') {
+		console.log('ERES ORO');
+		document.getElementById("logoDivision").src = '/img/Emblem_Iron.png';
+	}
+	else if (data[0].tier == 'BRONZE') {
+		console.log('ERES ORO');
+		document.getElementById("logoDivision").src = '/img/Emblem_Bronze.png';
+	}
 	else if (data[0].tier == 'SILVER') {
 		console.log('ERES PLATA');
 		document.getElementById("logoDivision").src = '/img/Emblem_Silver.png';
@@ -95,6 +111,26 @@ function obtenerLogoDivision(data) {
 	else if (data[0].tier == 'GOLD') {
 		console.log('ERES ORO');
 		document.getElementById("logoDivision").src = '/img/Emblem_Gold.png';
+	}
+	else if (data[0].tier == 'PLATINUM') {
+		console.log('ERES ORO');
+		document.getElementById("logoDivision").src = '/img/Emblem_Platinum.png';
+	}
+	else if (data[0].tier == 'DIAMOND') {
+		console.log('ERES ORO');
+		document.getElementById("logoDivision").src = '/img/Emblem_Diamond.png';
+	}
+	else if (data[0].tier == 'MASTER') {
+		console.log('ERES ORO');
+		document.getElementById("logoDivision").src = '/img/Emblem_Master.png';
+	}
+	else if (data[0].tier == 'GRANDMASTER') {
+		console.log('ERES ORO');
+		document.getElementById("logoDivision").src = '/img/Emblem_Grandmaster.png';
+	}
+	else if (data[0].tier == 'CHALLENGER') {
+		console.log('ERES ORO ' + data[0].tier);
+		document.getElementById("logoDivision").src = '/img/Emblem_Challenger.png';
 	}
 	document.getElementById("tier").textContent = data[0].tier;
 	document.getElementById("rank").textContent = data[0].rank;

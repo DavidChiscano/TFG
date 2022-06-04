@@ -1,7 +1,6 @@
-module.exports = {
-  content: ["./src/**/*.{html,js}"],
-  theme: {
+export const content = ["./src/**/*.{html,js}"];
+export const darkMode = 'class';
+export const theme = {
     extend: {},
-  },
-   plugins: [require("daisyui")]
-}
+};
+export const plugins = [require("daisyui")];

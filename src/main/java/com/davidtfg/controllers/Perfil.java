@@ -1,12 +1,27 @@
 package com.davidtfg.controllers;
 
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.davidtfg.entity.CuentaLoL;
+import com.davidtfg.services.CuentaLoLService;
 
 @Controller
 public class Perfil {
+	@Autowired 
+	CuentaLoLService cuentaLoLService;
+	
 	@GetMapping("/perfil/{id}")
-	public String getPerfil() {
+	public String getPerfil(Model model, @PathVariable("id") Long id) {
+		Set<CuentaLoL> ListaCuentas = cuentaLoLService.getCuentas(id);
+		model.addAttribute("ListaCuentas", ListaCuentas);
 		return "perfil";
 	}
+
+	
 }

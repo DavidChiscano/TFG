@@ -1,5 +1,8 @@
 package com.davidtfg.services;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +36,12 @@ public class CuentaLoLServiceImpl implements CuentaLoLService {
 		cuenta.addUser(user);
 		return cuentaDao.save(cuenta);
 	}
+
+	@Override
+	public Set<CuentaLoL> getCuentas(Long idUsuario) {
+		User user = userDao.findById(idUsuario).orElse(null);
+		return user.getCuentaslol();
+	}
+
 
 }
