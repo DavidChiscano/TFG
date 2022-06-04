@@ -17,7 +17,10 @@ const urlDatosMaestria = 'https://euw1.api.riotgames.com/lol/champion-mastery/v4
 const urlObtenerIdPartida = 'https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/'
 const urlObtenerIdPartida2 = '/ids?count=5&api_key=';
 const urlPartidas = 'https://europe.api.riotgames.com/lol/match/v5/matches/'
-document.body.style.overflow = 'hidden';
+
+window.addEventListener("load", function() {
+    document.body.style.overflow = 'hidden';
+ });
 
 //PERSISTIR CUENTA EN LA BBDD
 function persistirCuenta() {
@@ -64,6 +67,7 @@ document.getElementById("btnBuscar").onclick = function() {
 		.then(function(data) {
 			ocultarCampos();
 			document.getElementById("datosCuenta").classList.remove("invisible");
+			document.getElementById("infoCuenta").classList.remove("invisible");
 			document.getElementById("logo").classList.replace("mt-48", "mt-10");
 			let nombreCuenta = document.getElementById("cuentaEncontrada");
 			let nivelCuenta = document.getElementById("nivelCuenta");
@@ -79,10 +83,21 @@ document.getElementById("btnBuscar").onclick = function() {
 			console.log(error);
 		});
 }
+//FUNCION PARA CENTRAR LA PAGINA SI SE REFRESCA ASI NO DESAPARECE EL BUSCADOR POR ARRIBA
+function closeIt(){
+document.body.style.overflow = 'visible';
+$('body,html').animate({ scrollTop:'0px'},1);
+}
+
+window.addEventListener("beforeunload", function() {
+     closeIt();
+});
+
 //OCULTAR CAMPOS
 function ocultarCampos() {
 	document.body.style.overflow = 'hidden';
 	document.getElementById("infoLiga").classList.add("invisible");
+	document.getElementById("infoCuenta").classList.add("invisible");
 	document.getElementById("masJugados").classList.add("invisible");
 	document.getElementById("spanMasJugados").classList.add("invisible");
 	document.getElementById("spanUltimasPartidas").classList.add("invisible");
@@ -144,11 +159,19 @@ function obtenerItemsPartida1(arrayParticipantesF) {
 	let nombreCuenta = document.getElementById("cuentaEncontrada").innerText;
 	for (let i = 0; i < arrayParticipantesF.length; i++) {
 		if (arrayParticipantesF[i].summonerName == nombreCuenta) {
-			if (arrayParticipantesF[i].win == true) {
-				document.getElementById("resultadoPartida1").textContent = 'Victoria';
+			if (arrayParticipantesF[i].teamPosition == '') {
+				document.getElementById("rol1").textContent = arrayParticipantesF[i].teamPosition + '---';
 			} else {
-				document.getElementById("resultadoPartida1").textContent = 'Derrota';
+				document.getElementById("rol1").textContent = arrayParticipantesF[i].teamPosition;
 			}
+			if (arrayParticipantesF[i].win == true) {
+				document.getElementById("resultadoPartida1").innerHTML = 
+                "<div class='badge badge-success gap-2'>Victoria</div>";
+			} else {
+				document.getElementById("resultadoPartida1").innerHTML = 
+                "<div class='badge badge-error gap-2'>Derrota</div>";
+			}
+			document.getElementById("vision1").textContent = arrayParticipantesF[i].visionScore;
 			document.getElementById("avatar1").src = urlImgCampeones + arrayParticipantesF[i].championName + ".png";
 			document.getElementById("kda1").textContent = arrayParticipantesF[i].kills +
 				' / ' + arrayParticipantesF[i].deaths +
@@ -193,11 +216,19 @@ function obtenerItemsPartida2(arrayParticipantesF) {
 	let nombreCuenta = document.getElementById("cuentaEncontrada").innerText;
 	for (let i = 0; i < arrayParticipantesF.length; i++) {
 		if (arrayParticipantesF[i].summonerName == nombreCuenta) {
-			if (arrayParticipantesF[i].win == true) {
-				document.getElementById("resultadoPartida2").textContent = 'Victoria';
+			if (arrayParticipantesF[i].teamPosition != '') {
+				document.getElementById("rol2").textContent = arrayParticipantesF[i].teamPosition;
 			} else {
-				document.getElementById("resultadoPartida2").textContent = 'Derrota';
+				document.getElementById("rol2").textContent = '---';
 			}
+			if (arrayParticipantesF[i].win == true) {
+				document.getElementById("resultadoPartida2").innerHTML = 
+                "<div class='badge badge-success gap-2'>Victoria</div>";
+			} else {
+				document.getElementById("resultadoPartida2").innerHTML = 
+                "<div class='badge badge-error gap-2'>Derrota</div>";
+			}
+			document.getElementById("vision2").textContent = arrayParticipantesF[i].visionScore;
 			document.getElementById("avatar2").src = urlImgCampeones + arrayParticipantesF[i].championName + ".png";
 			document.getElementById("kda2").textContent = arrayParticipantesF[i].kills +
 				' / ' + arrayParticipantesF[i].deaths +
@@ -241,11 +272,19 @@ function obtenerItemsPartida3(arrayParticipantesF) {
 	let nombreCuenta = document.getElementById("cuentaEncontrada").innerText;
 	for (let i = 0; i < arrayParticipantesF.length; i++) {
 		if (arrayParticipantesF[i].summonerName == nombreCuenta) {
-			if (arrayParticipantesF[i].win == true) {
-				document.getElementById("resultadoPartida3").textContent = 'Victoria';
+			if (arrayParticipantesF[i].teamPosition != '') {
+				document.getElementById("rol3").textContent = arrayParticipantesF[i].teamPosition;
 			} else {
-				document.getElementById("resultadoPartida3").textContent = 'Derrota';
+				document.getElementById("rol3").textContent = '---';
 			}
+			if (arrayParticipantesF[i].win == true) {
+				document.getElementById("resultadoPartida3").innerHTML = 
+                "<div class='badge badge-success gap-2'>Victoria</div>";
+			} else {
+				document.getElementById("resultadoPartida3").innerHTML = 
+                "<div class='badge badge-error gap-2'>Derrota</div>";
+			}
+			document.getElementById("vision3").textContent = arrayParticipantesF[i].visionScore;
 			document.getElementById("avatar3").src = urlImgCampeones + arrayParticipantesF[i].championName + ".png";
 			document.getElementById("kda3").textContent = arrayParticipantesF[i].kills +
 				' / ' + arrayParticipantesF[i].deaths +
@@ -284,28 +323,57 @@ function obtenerItemsPartida3(arrayParticipantesF) {
 	}
 }
 
-//OBTENER ITEMS PARTIDA 4 y 
+//OBTENER ITEMS PARTIDA 4 
 function obtenerItemsPartida4(arrayParticipantesF) {
 	let nombreCuenta = document.getElementById("cuentaEncontrada").innerText;
 	for (let i = 0; i < arrayParticipantesF.length; i++) {
 		if (arrayParticipantesF[i].summonerName == nombreCuenta) {
-			if (arrayParticipantesF[i].win == true) {
-				document.getElementById("resultadoPartida4").textContent = 'Victoria';
+			if (arrayParticipantesF[i].teamPosition != '') {
+				document.getElementById("rol4").textContent = arrayParticipantesF[i].teamPosition;
 			} else {
-				document.getElementById("resultadoPartida4").textContent = 'Derrota';
+				document.getElementById("rol4").textContent = '---';
 			}
+			if (arrayParticipantesF[i].win == true) {
+				document.getElementById("resultadoPartida4").innerHTML = 
+                "<div class='badge badge-success gap-2'>Victoria</div>";
+			} else {
+				document.getElementById("resultadoPartida4").innerHTML = 
+                "<div class='badge badge-error gap-2'>Derrota</div>";
+			}
+			document.getElementById("vision4").textContent = arrayParticipantesF[i].visionScore;
 			document.getElementById("avatar4").src = urlImgCampeones + arrayParticipantesF[i].championName + ".png";
 			document.getElementById("kda4").textContent = arrayParticipantesF[i].kills +
 				' / ' + arrayParticipantesF[i].deaths +
 				' / ' + arrayParticipantesF[i].assists;
-			if (arrayParticipantesF[i].item0 != 0 || arrayParticipantesF[i].item1 != 0 || arrayParticipantesF[i].item2 != 0 || arrayParticipantesF[i].item3 != 0 || arrayParticipantesF[i].item4 != 0 || arrayParticipantesF[i].item5 != 0) {
-				console.log('tiene items');
+			if (arrayParticipantesF[i].item0 != 0) {
 				document.getElementById("item0").src = urlItemIcons + arrayParticipantesF[i].item0 + '.png';
+			} else {
+				document.getElementById("item0").remove();
+			}
+			if (arrayParticipantesF[i].item1 != 0) {
 				document.getElementById("item1").src = urlItemIcons + arrayParticipantesF[i].item1 + '.png';
+			} else {
+				document.getElementById("item1").remove();
+			}
+			if (arrayParticipantesF[i].item2 != 0) {
 				document.getElementById("item2").src = urlItemIcons + arrayParticipantesF[i].item2 + '.png';
+			} else {
+				document.getElementById("item2").remove();
+			}
+			if (arrayParticipantesF[i].item3 != 0) {
 				document.getElementById("item3").src = urlItemIcons + arrayParticipantesF[i].item3 + '.png';
+			} else {
+				document.getElementById("item3").remove();
+			}
+			if (arrayParticipantesF[i].item4 != 0) {
 				document.getElementById("item4").src = urlItemIcons + arrayParticipantesF[i].item4 + '.png';
+			} else {
+				document.getElementById("item4").remove();
+			}
+			if (arrayParticipantesF[i].item5 != 0) {
 				document.getElementById("item5").src = urlItemIcons + arrayParticipantesF[i].item5 + '.png';
+			} else {
+				document.getElementById("item5").remove();
 			}
 		}
 	}
@@ -467,14 +535,13 @@ document.getElementById("ver").onclick = function() {
 							}
 						})
 						.then(function(data) {
-
 							var arrayParticipantes = [];
 							arrayParticipantes.push(data.info.participants);
 							var arrayParticipantesF = arrayParticipantes.map(x => Object.values(x)).flat();
 							console.log(arrayParticipantesF);
-							obtenerItemsPartida1(arrayParticipantesF);
 							document.getElementById("modoPartida1").textContent = data.info.gameMode;
-
+							document.getElementById("duracion1").textContent = Math.round(data.info.gameDuration / 60) + ' min';
+							obtenerItemsPartida1(arrayParticipantesF);
 						})
 					fetch(urlPartidas + idsPartidas[0][1] + RIOT_TOKEN)
 						.then(resp => {
@@ -490,8 +557,9 @@ document.getElementById("ver").onclick = function() {
 							arrayParticipantes.push(data.info.participants);
 							var arrayParticipantesF = arrayParticipantes.map(x => Object.values(x)).flat();
 							console.log(arrayParticipantesF);
-							obtenerItemsPartida2(arrayParticipantesF);
 							document.getElementById("modoPartida2").textContent = data.info.gameMode;
+							document.getElementById("duracion2").textContent = Math.round(data.info.gameDuration / 60) + ' min';
+							obtenerItemsPartida2(arrayParticipantesF);
 						})
 					fetch(urlPartidas + idsPartidas[0][2] + RIOT_TOKEN)
 						.then(resp => {
@@ -506,11 +574,10 @@ document.getElementById("ver").onclick = function() {
 							var arrayParticipantes = [];
 							arrayParticipantes.push(data.info.participants);
 							var arrayParticipantesF = arrayParticipantes.map(x => Object.values(x)).flat();
-
 							console.log(arrayParticipantesF);
-
-							obtenerItemsPartida3(arrayParticipantesF);
 							document.getElementById("modoPartida3").textContent = data.info.gameMode;
+							document.getElementById("duracion3").textContent = Math.round(data.info.gameDuration / 60) + ' min';
+							obtenerItemsPartida3(arrayParticipantesF);
 
 						})
 					fetch(urlPartidas + idsPartidas[0][3] + RIOT_TOKEN)
@@ -528,8 +595,9 @@ document.getElementById("ver").onclick = function() {
 							var arrayParticipantesF = arrayParticipantes.map(x => Object.values(x)).flat();
 							console.log(arrayParticipantesF);
 							console.log(data);
-							obtenerItemsPartida4(arrayParticipantesF);
 							document.getElementById("modoPartida4").textContent = data.info.gameMode;
+							document.getElementById("duracion4").textContent = Math.round(data.info.gameDuration / 60) + ' min';
+							obtenerItemsPartida4(arrayParticipantesF);
 						})
 				})
 		})

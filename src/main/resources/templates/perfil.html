@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="dark" lang="es">
+<html lang="es">
 
 <head>
 <meta charset="UTF-8">
@@ -14,8 +14,8 @@
 <script th:src="@{js/ajax.js}"></script>
 </head>
 
-<body class="bg-gray-900" >
-	<div class="navbar bg-dark-300 rounded-box bg-gray-900 ">
+<body>
+	<div class="navbar bg-base-300">
 		<div class="flex-1 px-1 lg:flex-none">
 			<a class="text-lg font-bold pl-5 pr-10" th:href="@{/index}">Inicio
 			</a> <a class="text-lg font-bold">Usuario logueado: </a>
@@ -38,7 +38,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="w-screen h-screen bg-white flex flex-row flex-wrap p-3">
+	<div class="w-screen h-screen bg-gray-900 flex flex-row flex-wrap p-3">
 		<div class="mx-auto w-1/2 mt-48">
 			<!-- Profile Card -->
 			<div
@@ -83,7 +83,7 @@
 				</div>
 			</div>
 			<!-- End Profile Card -->
-			<div id="ultimasPartidas" class="overflow-x-auto mx-auto ">
+			<div id="ultimasPartidas" class="overflow-x-auto mx-auto mt-10">
 				<table class="table mx-auto">
 					<!-- head -->
 					<thead>

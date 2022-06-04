@@ -1,10 +1,7 @@
 package com.davidtfg.services;
 
-import java.util.List;
 import java.util.Set;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
