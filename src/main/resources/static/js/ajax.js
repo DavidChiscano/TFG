@@ -1,6 +1,6 @@
 //VARS
-const RIOT_TOKEN = "?api_key=RGAPI-a6585bfd-ceb3-41d6-99d3-f649d4ad7748";
-const RIOT_TOKEN2 = "RGAPI-a6585bfd-ceb3-41d6-99d3-f649d4ad7748";
+const RIOT_TOKEN = "?api_key=RGAPI-78f6024a-99e0-4d1a-94e6-ea9757e440ce";
+const RIOT_TOKEN2 = "RGAPI-78f6024a-99e0-4d1a-94e6-ea9757e440ce";
 var nombre = '';
 var encryptedSummonerId = '';
 var puuid = '';
@@ -17,10 +17,33 @@ const urlDatosMaestria = 'https://euw1.api.riotgames.com/lol/champion-mastery/v4
 const urlObtenerIdPartida = 'https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/'
 const urlObtenerIdPartida2 = '/ids?count=5&api_key=';
 const urlPartidas = 'https://europe.api.riotgames.com/lol/match/v5/matches/'
-
+var versionActual = '';
 window.addEventListener("load", function() {
     document.body.style.overflow = 'hidden';
+    comprobarVersion();
  });
+
+//COMPROBAR VERSION DEL PARCHE ACTUAL
+
+function comprobarVersion(){
+		fetch('https://ddragon.leagueoflegends.com/realms/na.json')
+		.then(resp => {
+			if (resp.ok) {
+				return resp.json();
+			}else {
+				alert("Error, intentelo de nuevo");
+				throw new Error("Error, intentelo de nuevo");
+			}
+		})
+		.then(function(data) {
+			versionActual = data.v;
+			document.getElementById("versionActual").textContent = 'Parche actual: ' + data.v;
+		})
+
+		.catch(function(error) {
+			console.log(error);
+		});
+}
 
 //PERSISTIR CUENTA EN LA BBDD
 function persistirCuenta() {
@@ -147,11 +170,19 @@ function obtenerLogoDivision(data) {
 		console.log('ERES ORO ' + data[0].tier);
 		document.getElementById("logoDivision").src = '/img/Emblem_Challenger.png';
 	}
+	
+	let winrate = Math.round(data[0].wins/(data[0].wins + data[0].losses)*100); //formula para calcular el porcentaje de victorias
 	document.getElementById("tier").textContent = data[0].tier;
 	document.getElementById("rank").textContent = data[0].rank;
 	document.getElementById("lps").textContent = "LP: " + data[0].leaguePoints;
-	document.getElementById("wins").textContent = "Victorias: " + data[0].wins;
-	document.getElementById("losses").textContent = "Derrotas: " + data[0].losses;
+	document.getElementById("totalPartidas").textContent = "Partidas jugadas: " + data[0].wins + data[0].losses;
+	document.getElementById("wins").innerHTML ="<div class='text text-success gap-2'>" + "Victorias(clasificatorias): " + data[0].wins + "</div>";
+	document.getElementById("losses").innerHTML ="<div class='text text-error gap-2'>" + "Derrotas(clasificatorias): " + data[0].losses + "</div>";
+	if(winrate > 50){
+		document.getElementById("winrate").innerHTML = "<div class='text text-green-500 gap-2'>" + 'Winrate: ' + winrate + '%' + "</div>";
+	}else{
+		document.getElementById("winrate").innerHTML = "<div class='text text-red-500 gap-2'>" + 'Winrate: ' + winrate + '%' + "</div>";
+	}
 }
 
 //OBTENER ITEMS PARTIDA 1
@@ -402,6 +433,28 @@ function mostrarElementos() {
 	document.getElementById("ultimasPartidas").classList.remove("invisible");
 	document.body.style.overflow = 'visible';
 }
+
+//BORRAR CUENTA
+$(document).on("click", "#borrar", function() {
+	var div = $(this)[0].parentNode.parentNode.remove();
+	var divId = $(this).closest("#ultimasPartidas");
+	var id = divId[0].childNodes[1].innerText;
+
+	fetch("/perfil/borrar/" + id, {
+		headers: { "Content-Type": "application/json; charset=utf-8" }
+	})
+		.then(res => res.json())
+		.then(response => {
+			if (response) {
+				div.remove();
+				window.location.href = '/perfil/1'
+			}
+		})
+});
+
+
+
+
 //VER PERFIL DETALLADO
 document.getElementById("ver").onclick = function() {
 	fetch(urlPerfil + encryptedSummonerId + RIOT_TOKEN)
@@ -441,6 +494,7 @@ document.getElementById("ver").onclick = function() {
 							var jsonresponse = JSON.parse(response);
 							var championsId = [];
 							championsId.push(jsonresponse.data);
+							
 							//Almaceno el id de los personajes con mas maestria de la cuenta
 							var ids = [];
 							for (let i = 0; i < 3; i++) {
@@ -453,6 +507,9 @@ document.getElementById("ver").onclick = function() {
 							document.getElementById("puntosPj3").textContent = 'Puntos: ' + dataMastery[2].championPoints;
 							//Array con la info de los campeones mapeado a mi formato para usarlo
 							var arrayMapped = championsId.map(x => Object.values(x)).flat();
+							if(arrayMapped[0].version != versionActual){
+								alert('Hay una nueva version, para evitar problemas descargue el nuevo archivo champions.json');
+							}
 							//Recorrer el array para obtener los 3 nombres de los campeones con mas maestria de la cuenta
 							var pj1 = "";
 							var pj2 = "";

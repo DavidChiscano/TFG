@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.davidtfg.entity.CuentaLoL;
 import com.davidtfg.services.CuentaLoLService;
@@ -21,6 +22,11 @@ public class Perfil {
 		Set<CuentaLoL> ListaCuentas = cuentaLoLService.getCuentas(id);
 		model.addAttribute("ListaCuentas", ListaCuentas);
 		return "perfil";
+	}
+	@ResponseBody
+	@GetMapping("/perfil/borrar/{id}")
+	public void getBorrarIdCuenta(@PathVariable("id") long id) {
+		cuentaLoLService.borrarCuenta(id);
 	}
 
 	

@@ -50,7 +50,7 @@
 	<!-- BUSCADOR -->
 	<img id="logo" class="object-cover h-48 w-96 mx-auto mt-48"
 		src="/img/logo_prev_ui.png" />
-
+		<div id="versionActual" class="flex w-fit items-center justify-center mx-auto badge badge-success badge-outline"></div>
 	<main
 		class="flex flex-row my-10 items-center justify-center flex flex-around">
 		<div class="flex rounded bg-white w-[30rem]" x-data="{ search: '' }">
@@ -91,17 +91,19 @@
 		</div>
 		<div class="flex flex-row w-2/2 items-center justify-center">
 			<!-- DATOS LP CUENTA -->
-			<div class="max-w-sm h-64 w-3/4 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 invisible" id="infoLiga">
+			<div class="max-w-sm h-[20rem] w-3/4 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 invisible" id="infoLiga">
 				<div class="flex justify-end px-2 pt-4 mx-auto"></div>
-				<div class="flex flex-col items-center pb-10 mx-auto">
+				<div class="flex flex-col items-center pb-20 mx-auto">
 					<img id="logoDivision"
 						class="mb-3 w-24 h-24 rounded-full shadow-lg" src=""
 						alt="logo division"> <span
-						class="text-sm text-gray-500 dark:text-gray-400" id="tier"></span>
-					<span class="text-sm text-gray-500 dark:text-gray-400" id="rank"></span>
-					<span class="text-sm text-gray-500 dark:text-gray-400" id="lps"></span>
-					<span class="text-sm text-gray-500 dark:text-gray-400" id="wins"></span>
-					<span class="text-sm text-gray-500 dark:text-gray-400" id="losses"></span>
+						class="text-xl text-gray-400" id="tier"></span>
+					<span class="text-m text-gray-400" id="rank"></span>
+					<span class="text-m text-gray-400" id="lps"></span>
+					<span class="text-m text-gray-400" id="wins"></span>
+					<span class="text-m text-gray-400" id="losses"></span>
+					<span class="text-m text-gray-400" id="winrate"></span>
+					<span class="text-m text-gray-400" id="totalPartidas"></span>
 				</div>
 			</div>
 		</div>
@@ -112,9 +114,10 @@
 <div id="masJugados" class="max-w-6xl w-2/2 my-auto flex flex-wrap bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 invisible">
   <div class="stat">
     <div class="stat-value" id="nombrePj1"></div>
-    <div class="stat-title" id="puntosPj1"></div>
-    <div class="stat-desc text-primary text-lg" id="tagsPj1"></div>
     <div class="stat-desc text-secondary text-lg" id="lorePj1"></div>
+    <div class="stat-title text-info text-lg" id="puntosPj1"></div>
+    <div class="stat-desc text-warning text-lg" id="tagsPj1"></div>
+    
         <div class="stat-figure text-secondary">
       <div class="avatar">
         <div class="w-20 rounded-full">
@@ -132,9 +135,10 @@
       </div>
     </div>
     <div class="stat-value" id="nombrePj2"></div>
-    <div class="stat-title" id="puntosPj2"></div>
-    <div class="stat-desc text-primary text-lg" id="tagsPj2"></div>
     <div class="stat-desc text-secondary text-lg" id="lorePj2"></div>
+    <div class="stat-title text-info text-lg" id="puntosPj2"></div>
+    <div class="stat-desc text-warning text-lg" id="tagsPj2"></div>
+    
   </div>
   <div class="stat">
     <div class="stat-figure text-secondary">
@@ -145,9 +149,10 @@
       </div>
     </div>
     <div class="stat-value" id="nombrePj3"></div>
-    <div class="stat-title" id="puntosPj3"></div>
-    <div class="stat-desc text-primary text-lg" id="tagsPj3"></div>
     <div class="stat-desc text-secondary text-lg" id="lorePj3"></div>
+    <div class="stat-title text-info text-lg" id="puntosPj3"></div>
+    <div class="stat-desc text-warning text-lg" id="tagsPj3"></div>
+    
   </div>
  </div>
   </div>

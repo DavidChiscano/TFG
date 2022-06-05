@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS usuarios(
 	 fecha_nacimiento varchar(80) not null
 );
 CREATE TABLE IF NOT EXISTS cuentaslol(
-	 id_cuenta bigint not null primary key auto_increment,
+	 id_cuenta bigint not null primary key,
 	 usuario varchar(50) not null
 );	 
 CREATE TABLE IF NOT EXISTS usuario_rol(
