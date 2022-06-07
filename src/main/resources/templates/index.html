@@ -32,7 +32,7 @@
 				<div class="dropdown dropdown-end">
 
 					<label tabindex="0"
-						class="text-lg font-bold stat place-items-center dark:text-white dark:border-gray-600 dark:hover:bg-purple-500 dark:hover:border-gray-700 dark:focus:ring-gray-700"
+						class="text-lg font-bold stat place-items-center text-white border-gray-600 hover:bg-purple-500 hover:border-gray-700 focus:ring-gray-700"
 						th:text="${session.usuario.nombre}"></label>
 					<ul tabindex="0"
 						class="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4">
@@ -67,22 +67,22 @@
 	<div>
 		<!-- DATOS CUENTA BUSCADA -->
 		<div class="flex flex-row w-2/2 items-center justify-center">
-			<div id="datosCuenta" class="max-w-sm h-64 w-3/4 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 invisible ">
+			<div id="datosCuenta" class="max-w-sm h-64 w-3/4 bg-white rounded-lg border border-gray-200 shadow-md bg-gray-800 border-gray-700 invisible ">
 				<div class="flex justify-end px-2 pt-4"></div>
 				<div class="flex flex-col items-center pb-10">
 					<img id="imgPerfil" class="mb-3 w-24 h-24 rounded-full shadow-lg"
 						src="" alt="Imagen cuenta">
-					<h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"
+					<h5 class="mb-1 text-xl font-medium text-white"
 						id="cuentaEncontrada"></h5>
-					<span class="text-sm text-gray-500 dark:text-gray-400 mb-3"
+					<span class="text-sm text-gray-400 mb-3"
 						id="nivelCuenta"></span>
 					<div class="stats shadow">
 						<a id="ver"
-							class="stat place-items-center dark:text-white dark:border-gray-600 dark:hover:bg-purple-500 dark:hover:border-gray-700 dark:focus:ring-gray-700">Ver</a>
+							class="stat place-items-center text-white border-gray-600 hover:bg-purple-500 hover:border-gray-700 focus:ring-gray-700">Ver</a>
 					
 					<form class="cuenta" id="formAddCuenta" th:action="@{/index/guardarCuenta}" method="POST">
 					<a id="addCuenta" type="submit"
-							class="stat place-items-center dark:text-white dark:border-gray-600 dark:hover:bg-purple-500 dark:hover:border-gray-700 dark:focus:ring-gray-700">Añadir</a>
+							class="stat place-items-center text-white border-gray-600 hover:bg-purple-500 hover:border-gray-700 focus:ring-gray-700">Añadir</a>
 					</form>
 					</div>
 				</div>
@@ -91,19 +91,20 @@
 		</div>
 		<div class="flex flex-row w-2/2 items-center justify-center">
 			<!-- DATOS LP CUENTA -->
-			<div class="max-w-sm h-[20rem] w-3/4 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 invisible" id="infoLiga">
+			<div class="max-w-sm h-[20rem] w-3/4 bg-white rounded-lg border border-gray-200 shadow-md bg-gray-800 border-gray-700 invisible" id="infoLiga">
 				<div class="flex justify-end px-2 pt-4 mx-auto"></div>
 				<div class="flex flex-col items-center pb-20 mx-auto">
 					<img id="logoDivision"
 						class="mb-3 w-24 h-24 rounded-full shadow-lg" src=""
 						alt="logo division"> <span
-						class="text-xl text-gray-400" id="tier"></span>
-					<span class="text-m text-gray-400" id="rank"></span>
-					<span class="text-m text-gray-400" id="lps"></span>
+						class="text-xl text-white" id="tier"></span>
+					<span class="text-m text-white" id="rank"></span>
+					<span class="text-m text-white" id="lps"></span>
+					<span class="text-m text-white" id="totalPartidas"></span>
 					<span class="text-m text-gray-400" id="wins"></span>
 					<span class="text-m text-gray-400" id="losses"></span>
 					<span class="text-m text-gray-400" id="winrate"></span>
-					<span class="text-m text-gray-400" id="totalPartidas"></span>
+					
 				</div>
 			</div>
 		</div>
@@ -111,7 +112,7 @@
 			mas jugados</div>
 
 <div class="flex mx-auto max-w-sm justify-center align-center">
-<div id="masJugados" class="max-w-6xl w-2/2 my-auto flex flex-wrap bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 invisible">
+<div id="masJugados" class="max-w-6xl w-2/2 my-auto flex flex-wrap bg-white rounded-lg border border-gray-200 shadow-md bg-gray-800 border-gray-700 invisible">
   <div class="stat">
     <div class="stat-value" id="nombrePj1"></div>
     <div class="stat-desc text-secondary text-lg" id="lorePj1"></div>
