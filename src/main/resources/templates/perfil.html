@@ -83,6 +83,8 @@
 				</div>
 			</div>
 			<!-- End Profile Card -->
+			<div id="spanUltimasPartidas" class="flex w-fit items-center justify-center px-2 py-1 text-xl font-bold leading-none text-indigo-100 bg-indigo-700 rounded mx-auto mt-10">Cuentas guardadas</div>
+			
 			<div class="overflow-x-auto mx-auto mt-10">
 				<table class="table mx-auto">
 					<!-- head -->
@@ -95,16 +97,17 @@
 					<tbody id="ultimasPartidas" th:each="cuenta: ${ListaCuentas}">
 						<!-- row 1 -->
 						<tr>
-							<td id="modoPartida1" th:text="${cuenta.id_cuenta}"></td>
-							<td id="kda1" th:text="${cuenta.usuario}"></td>
-							<td id="borrar"><a th:href="@{/perfil/borrar/{id}(id=${cuenta.id_cuenta})}"><div class="btn">Eliminar</div></a></td>
+							<td id="idCuenta" th:text="${cuenta.id_cuenta}"></td>
+							<td id="nombreUsuario" th:text="${cuenta.usuario}"></td>
+							<td id="busqueda"><div class="btn">Buscar</div></td>
+							<td id="borrar"><div class="btn">Eliminar</div></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
-	<script th:src="@{js/ajax.js}"></script>
+	<script th:src="@{../js/ajaxPerfil.js}"></script>
 </body>
 
 </html>

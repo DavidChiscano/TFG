@@ -1,11 +1,13 @@
 //VARS
-const RIOT_TOKEN = "?api_key=RGAPI-c4875eb7-922f-44e5-803c-c619f3eadcbc";
-const RIOT_TOKEN2 = "RGAPI-c4875eb7-922f-44e5-803c-c619f3eadcbc";
+const RIOT_TOKEN = "?api_key=RGAPI-f42e758d-5296-48a6-b3c7-4bbfdf6bf1d4";
+const RIOT_TOKEN2 = "RGAPI-f42e758d-5296-48a6-b3c7-4bbfdf6bf1d4";
 var nombre = '';
 var encryptedSummonerId = '';
 var puuid = '';
 var token = $("meta[name='_csrf']").attr("content");
 var header = $("meta[name='_csrf_header']").attr("content");
+var versionActual = '';
+
 //URL's API RIOT'
 const urlNombreCuenta = 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/';
 const urlPerfil = 'https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/';
@@ -17,16 +19,28 @@ const urlDatosMaestria = 'https://euw1.api.riotgames.com/lol/champion-mastery/v4
 const urlObtenerIdPartida = 'https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/'
 const urlObtenerIdPartida2 = '/ids?count=5&api_key=';
 const urlPartidas = 'https://europe.api.riotgames.com/lol/match/v5/matches/'
-var versionActual = '';
+
+
 window.addEventListener("load", function() {
     document.body.style.overflow = 'hidden';
     comprobarVersion();
+    checkSession();
  });
 
-//COMPROBAR VERSION DEL PARCHE ACTUAL
+//CHECK SESSION
+function checkSession(){
+	var data = sessionStorage.getItem("busquedaRapida");
+	if(data != null){
+		 document.getElementById("buscador").value = data;
+		 document.getElementById("btnBuscar").disabled = false;
+		 document.getElementById("btnBuscar").click();
+		 sessionStorage.removeItem('busquedaRapida');
+	}
+}
 
+//COMPROBAR VERSION DEL PARCHE ACTUAL
 function comprobarVersion(){
-		fetch('https://ddragon.leagueoflegends.com/realms/na.json')
+		fetch('https://ddragon.leagueoflegends.com/realms/euw.json')
 		.then(resp => {
 			if (resp.ok) {
 				return resp.json();
@@ -134,50 +148,41 @@ function obtenerLogoDivision(data) {
 		document.getElementById("logoDivision").src = '/img/Emblem_Silver.png';
 		return;
 	}
-	else if (data[0].tier == 'IRON') {
-		console.log('ERES ORO');
+	else if (data[1].tier == 'IRON') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Iron.png';
 	}
-	else if (data[0].tier == 'BRONZE') {
-		console.log('ERES ORO');
+	else if (data[1].tier == 'BRONZE') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Bronze.png';
 	}
-	else if (data[0].tier == 'SILVER') {
-		console.log('ERES PLATA');
+	else if (data[1].tier == 'SILVER') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Silver.png';
 	}
-	else if (data[0].tier == 'GOLD') {
-		console.log('ERES ORO');
+	else if (data[1].tier == 'GOLD') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Gold.png';
 	}
-	else if (data[0].tier == 'PLATINUM') {
-		console.log('ERES ORO');
+	else if (data[1].tier == 'PLATINUM') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Platinum.png';
 	}
-	else if (data[0].tier == 'DIAMOND') {
-		console.log('ERES ORO');
+	else if (data[1].tier == 'DIAMOND') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Diamond.png';
 	}
-	else if (data[0].tier == 'MASTER') {
-		console.log('ERES ORO');
+	else if (data[1].tier == 'MASTER') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Master.png';
 	}
-	else if (data[0].tier == 'GRANDMASTER') {
-		console.log('ERES ORO');
+	else if (data[1].tier == 'GRANDMASTER') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Grandmaster.png';
 	}
-	else if (data[0].tier == 'CHALLENGER') {
-		console.log('ERES ORO ' + data[0].tier);
+	else if (data[1].tier == 'CHALLENGER') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Challenger.png';
 	}
 	
-	let winrate = Math.round(data[0].wins/(data[0].wins + data[0].losses)*100); //formula para calcular el porcentaje de victorias
-	document.getElementById("tier").textContent = data[0].tier;
-	document.getElementById("rank").textContent = data[0].rank;
-	document.getElementById("lps").textContent = "LP: " + data[0].leaguePoints;
-	document.getElementById("totalPartidas").textContent = "Partidas jugadas: " + data[0].wins + data[0].losses;
-	document.getElementById("wins").innerHTML ="<div class='text text-success gap-2'>" + "Victorias(clasificatorias): " + data[0].wins + "</div>";
-	document.getElementById("losses").innerHTML ="<div class='text text-error gap-2'>" + "Derrotas(clasificatorias): " + data[0].losses + "</div>";
+	let winrate = Math.round(data[1].wins/(data[1].wins + data[1].losses)*100); //formula para calcular el porcentaje de victorias
+	document.getElementById("tier").textContent = data[1].tier;
+	document.getElementById("rank").textContent = data[1].rank;
+	document.getElementById("lps").textContent = "LP: " + data[1].leaguePoints;
+	document.getElementById("totalPartidas").textContent = "Partidas jugadas: " + (data[1].wins + data[1].losses);
+	document.getElementById("wins").innerHTML ="<div class='text text-success gap-2'>" + "Victorias(clasificatorias): " + data[1].wins + "</div>";
+	document.getElementById("losses").innerHTML ="<div class='text text-error gap-2'>" + "Derrotas(clasificatorias): " + data[1].losses + "</div>";
 	if(winrate > 50){
 		document.getElementById("winrate").innerHTML = "<div class='text text-green-500 gap-2'>" + 'Winrate: ' + winrate + '%' + "</div>";
 	}else{
@@ -451,8 +456,6 @@ $(document).on("click", "#borrar", function() {
 			}
 		})
 });
-
-
 
 
 //VER PERFIL DETALLADO

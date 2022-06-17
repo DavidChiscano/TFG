@@ -44,6 +44,4 @@ public class CuentaLoLServiceImpl implements CuentaLoLService {
 	public void borrarCuenta(Long id) {
 		cuentaDao.deleteById(id);
 	}
-
-
 }

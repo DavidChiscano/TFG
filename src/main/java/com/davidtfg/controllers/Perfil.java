@@ -25,9 +25,7 @@ public class Perfil {
 	}
 	@ResponseBody
 	@GetMapping("/perfil/borrar/{id}")
-	public void getBorrarIdCuenta(@PathVariable("id") long id) {
+	public void getBorrarIdCuenta(@PathVariable("id") Long id) {
 		cuentaLoLService.borrarCuenta(id);
 	}
-
-	
 }

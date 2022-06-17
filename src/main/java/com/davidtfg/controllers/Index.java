@@ -31,7 +31,7 @@ public class Index {
 
 	// Guardar cuenta en base de datos
 	@PostMapping("/index/guardarCuenta")
-	public ResponseEntity<CuentaLoL> obtenerCuenta(@RequestBody Map<String, String> json) {
+	public ResponseEntity<CuentaLoL> saveAcc(@RequestBody Map<String, String> json) {
 		CuentaLoL cuenta = new CuentaLoL();
 		cuenta.setUsuario(json.get("usuario"));
 		cuentaService.addCuenta(cuenta);
