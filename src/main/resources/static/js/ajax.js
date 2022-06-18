@@ -1,6 +1,6 @@
 //VARS
-const RIOT_TOKEN = "?api_key=RGAPI-f42e758d-5296-48a6-b3c7-4bbfdf6bf1d4";
-const RIOT_TOKEN2 = "RGAPI-f42e758d-5296-48a6-b3c7-4bbfdf6bf1d4";
+const RIOT_TOKEN = "?api_key=RGAPI-330d69a2-d57d-4d4d-bf4d-7778c82bcb3f";
+const RIOT_TOKEN2 = "RGAPI-330d69a2-d57d-4d4d-bf4d-7778c82bcb3f";
 var nombre = '';
 var encryptedSummonerId = '';
 var puuid = '';
@@ -148,41 +148,41 @@ function obtenerLogoDivision(data) {
 		document.getElementById("logoDivision").src = '/img/Emblem_Silver.png';
 		return;
 	}
-	else if (data[1].tier == 'IRON') {
+	else if (data[0].tier == 'IRON') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Iron.png';
 	}
-	else if (data[1].tier == 'BRONZE') {
+	else if (data[0].tier == 'BRONZE') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Bronze.png';
 	}
-	else if (data[1].tier == 'SILVER') {
+	else if (data[0].tier == 'SILVER') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Silver.png';
 	}
-	else if (data[1].tier == 'GOLD') {
+	else if (data[0].tier == 'GOLD') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Gold.png';
 	}
-	else if (data[1].tier == 'PLATINUM') {
+	else if (data[0].tier == 'PLATINUM') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Platinum.png';
 	}
-	else if (data[1].tier == 'DIAMOND') {
+	else if (data[0].tier == 'DIAMOND') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Diamond.png';
 	}
-	else if (data[1].tier == 'MASTER') {
+	else if (data[0].tier == 'MASTER') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Master.png';
 	}
-	else if (data[1].tier == 'GRANDMASTER') {
+	else if (data[0].tier == 'GRANDMASTER') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Grandmaster.png';
 	}
-	else if (data[1].tier == 'CHALLENGER') {
+	else if (data[0].tier == 'CHALLENGER') {
 		document.getElementById("logoDivision").src = '/img/Emblem_Challenger.png';
 	}
 	
-	let winrate = Math.round(data[1].wins/(data[1].wins + data[1].losses)*100); //formula para calcular el porcentaje de victorias
-	document.getElementById("tier").textContent = data[1].tier;
-	document.getElementById("rank").textContent = data[1].rank;
-	document.getElementById("lps").textContent = "LP: " + data[1].leaguePoints;
-	document.getElementById("totalPartidas").textContent = "Partidas jugadas: " + (data[1].wins + data[1].losses);
-	document.getElementById("wins").innerHTML ="<div class='text text-success gap-2'>" + "Victorias(clasificatorias): " + data[1].wins + "</div>";
-	document.getElementById("losses").innerHTML ="<div class='text text-error gap-2'>" + "Derrotas(clasificatorias): " + data[1].losses + "</div>";
+	let winrate = Math.round(data[0].wins/(data[0].wins + data[0].losses)*100); //formula para calcular el porcentaje de victorias
+	document.getElementById("tier").textContent = data[0].tier;
+	document.getElementById("rank").textContent = data[0].rank;
+	document.getElementById("lps").textContent = "LP: " + data[0].leaguePoints;
+	document.getElementById("totalPartidas").textContent = "Partidas jugadas: " + (data[0].wins + data[0].losses);
+	document.getElementById("wins").innerHTML ="<div class='text text-success gap-2'>" + "Victorias(clasificatorias): " + data[0].wins + "</div>";
+	document.getElementById("losses").innerHTML ="<div class='text text-error gap-2'>" + "Derrotas(clasificatorias): " + data[0].losses + "</div>";
 	if(winrate > 50){
 		document.getElementById("winrate").innerHTML = "<div class='text text-green-500 gap-2'>" + 'Winrate: ' + winrate + '%' + "</div>";
 	}else{
@@ -215,32 +215,32 @@ function obtenerItemsPartida1(arrayParticipantesF) {
 			if (arrayParticipantesF[i].item0 != 0) {
 				document.getElementById("p1item0").src = urlItemIcons + arrayParticipantesF[i].item0 + '.png';
 			} else {
-				document.getElementById("p1item0").remove();
+				document.getElementById("p1divitem0").remove();
 			}
 			if (arrayParticipantesF[i].item1 != 0) {
 				document.getElementById("p1item1").src = urlItemIcons + arrayParticipantesF[i].item1 + '.png';
 			} else {
-				document.getElementById("p1item1").remove();
+				document.getElementById("p1divitem1").remove();
 			}
 			if (arrayParticipantesF[i].item2 != 0) {
 				document.getElementById("p1item2").src = urlItemIcons + arrayParticipantesF[i].item2 + '.png';
 			} else {
-				document.getElementById("p1item2").remove();
+				document.getElementById("p1divitem2").remove();
 			}
 			if (arrayParticipantesF[i].item3 != 0) {
 				document.getElementById("p1item3").src = urlItemIcons + arrayParticipantesF[i].item3 + '.png';
 			} else {
-				document.getElementById("p1item3").remove();
+				document.getElementById("p1divitem3").remove();
 			}
 			if (arrayParticipantesF[i].item4 != 0) {
 				document.getElementById("p1item4").src = urlItemIcons + arrayParticipantesF[i].item4 + '.png';
 			} else {
-				document.getElementById("p1item4").remove();
+				document.getElementById("p1divitem4").remove();
 			}
 			if (arrayParticipantesF[i].item5 != 0) {
 				document.getElementById("p1item5").src = urlItemIcons + arrayParticipantesF[i].item5 + '.png';
 			} else {
-				document.getElementById("p1item5").remove();
+				document.getElementById("p1divitem5").remove();
 			}
 		}
 	}
@@ -272,32 +272,33 @@ function obtenerItemsPartida2(arrayParticipantesF) {
 			if (arrayParticipantesF[i].item0 != 0) {
 				document.getElementById("p2item0").src = urlItemIcons + arrayParticipantesF[i].item0 + '.png';
 			} else {
-				document.getElementById("p2item0").remove();
+				document.getElementById("p2divitem0").remove();
 			}
 			if (arrayParticipantesF[i].item1 != 0) {
 				document.getElementById("p2item1").src = urlItemIcons + arrayParticipantesF[i].item1 + '.png';
 			} else {
-				document.getElementById("p2item1").remove();
+				document.getElementById("p2divitem1").remove();
 			}
 			if (arrayParticipantesF[i].item2 != 0) {
 				document.getElementById("p2item2").src = urlItemIcons + arrayParticipantesF[i].item2 + '.png';
 			} else {
-				document.getElementById("p2item2").remove();
+				document.getElementById("p2divitem1").remove();
 			}
 			if (arrayParticipantesF[i].item3 != 0) {
 				document.getElementById("p2item3").src = urlItemIcons + arrayParticipantesF[i].item3 + '.png';
 			} else {
-				document.getElementById("p2item3").remove();
+				document.getElementById("p2divitem3").remove();
 			}
-			if (arrayParticipantesF[i].item4 != 0) {
-				document.getElementById("p2item4").src = urlItemIcons + arrayParticipantesF[i].item4 + '.png';
+			if (arrayParticipantesF[i].item4 == 0) {
+				console.log('AQUII ' + arrayParticipantesF[i].item4);
+				document.getElementById("p2divitem4").remove();
 			} else {
-				document.getElementById("p2item4").remove();
+				document.getElementById("p2item4").src = urlItemIcons + arrayParticipantesF[i].item4 + '.png';	
 			}
 			if (arrayParticipantesF[i].item5 != 0) {
 				document.getElementById("p2item5").src = urlItemIcons + arrayParticipantesF[i].item5 + '.png';
 			} else {
-				document.getElementById("p2item5").remove();
+				document.getElementById("p2divitem5").remove();
 			}
 		}
 	}
@@ -328,32 +329,32 @@ function obtenerItemsPartida3(arrayParticipantesF) {
 			if (arrayParticipantesF[i].item0 != 0) {
 				document.getElementById("p3item0").src = urlItemIcons + arrayParticipantesF[i].item0 + '.png';
 			} else {
-				document.getElementById("p3item0").remove();
+				document.getElementById("p3divitem0").remove();
 			}
 			if (arrayParticipantesF[i].item1 != 0) {
 				document.getElementById("p3item1").src = urlItemIcons + arrayParticipantesF[i].item1 + '.png';
 			} else {
-				document.getElementById("p3item1").remove();
+				document.getElementById("p3divitem1").remove();
 			}
 			if (arrayParticipantesF[i].item2 != 0) {
 				document.getElementById("p3item2").src = urlItemIcons + arrayParticipantesF[i].item2 + '.png';
 			} else {
-				document.getElementById("p3item2").remove();
+				document.getElementById("p3divitem2").remove();
 			}
 			if (arrayParticipantesF[i].item3 != 0) {
 				document.getElementById("p3item3").src = urlItemIcons + arrayParticipantesF[i].item3 + '.png';
 			} else {
-				document.getElementById("p3item3").remove();
+				document.getElementById("p3divitem3").remove();
 			}
 			if (arrayParticipantesF[i].item4 != 0) {
 				document.getElementById("p3item4").src = urlItemIcons + arrayParticipantesF[i].item4 + '.png';
 			} else {
-				document.getElementById("p3item4").remove();
+				document.getElementById("p3divitem4").remove();
 			}
 			if (arrayParticipantesF[i].item5 != 0) {
 				document.getElementById("p3item5").src = urlItemIcons + arrayParticipantesF[i].item5 + '.png';
 			} else {
-				document.getElementById("p3item5").remove();
+				document.getElementById("p3divitem5").remove();
 			}
 		}
 	}
@@ -384,38 +385,36 @@ function obtenerItemsPartida4(arrayParticipantesF) {
 			if (arrayParticipantesF[i].item0 != 0) {
 				document.getElementById("item0").src = urlItemIcons + arrayParticipantesF[i].item0 + '.png';
 			} else {
-				document.getElementById("item0").remove();
+				document.getElementById("p4divitem0").remove();
 			}
 			if (arrayParticipantesF[i].item1 != 0) {
 				document.getElementById("item1").src = urlItemIcons + arrayParticipantesF[i].item1 + '.png';
 			} else {
-				document.getElementById("item1").remove();
+				document.getElementById("p4divitem1").remove();
 			}
 			if (arrayParticipantesF[i].item2 != 0) {
 				document.getElementById("item2").src = urlItemIcons + arrayParticipantesF[i].item2 + '.png';
 			} else {
-				document.getElementById("item2").remove();
+				document.getElementById("p4divitem2").remove();
 			}
 			if (arrayParticipantesF[i].item3 != 0) {
 				document.getElementById("item3").src = urlItemIcons + arrayParticipantesF[i].item3 + '.png';
 			} else {
-				document.getElementById("item3").remove();
+				document.getElementById("p4divitem3").remove();
 			}
 			if (arrayParticipantesF[i].item4 != 0) {
 				document.getElementById("item4").src = urlItemIcons + arrayParticipantesF[i].item4 + '.png';
 			} else {
-				document.getElementById("item4").remove();
+				document.getElementById("p4divitem4").remove();
 			}
 			if (arrayParticipantesF[i].item5 != 0) {
 				document.getElementById("item5").src = urlItemIcons + arrayParticipantesF[i].item5 + '.png';
 			} else {
-				document.getElementById("item5").remove();
+				document.getElementById("p4divitem5").remove();
 			}
 		}
 	}
 }
-
-
 
 //CARGAR JSON LOCAL CAMPEONES
 function loadJSON(callback) {
@@ -438,25 +437,6 @@ function mostrarElementos() {
 	document.getElementById("ultimasPartidas").classList.remove("invisible");
 	document.body.style.overflow = 'visible';
 }
-
-//BORRAR CUENTA
-$(document).on("click", "#borrar", function() {
-	var div = $(this)[0].parentNode.parentNode.remove();
-	var divId = $(this).closest("#ultimasPartidas");
-	var id = divId[0].childNodes[1].innerText;
-
-	fetch("/perfil/borrar/" + id, {
-		headers: { "Content-Type": "application/json; charset=utf-8" }
-	})
-		.then(res => res.json())
-		.then(response => {
-			if (response) {
-				div.remove();
-				window.location.href = '/perfil/1'
-			}
-		})
-});
-
 
 //VER PERFIL DETALLADO
 document.getElementById("ver").onclick = function() {
@@ -511,13 +491,12 @@ document.getElementById("ver").onclick = function() {
 							//Array con la info de los campeones mapeado a mi formato para usarlo
 							var arrayMapped = championsId.map(x => Object.values(x)).flat();
 							if(arrayMapped[0].version != versionActual){
-								alert('Hay una nueva version, para evitar problemas descargue el nuevo archivo champions.json');
+								alert('Hay una nueva version, para evitar problemas descargue el nuevo archivo champions.json de la url http://ddragon.leagueoflegends.com/cdn/'+ versionActual + '/data/en_US/champion.json');
 							}
 							//Recorrer el array para obtener los 3 nombres de los campeones con mas maestria de la cuenta
 							var pj1 = "";
 							var pj2 = "";
 							var pj3 = "";
-
 							var tagsPj1 = []; //Tipo de personaje1
 							var tagsPj2 = []; //Tipo de personaje2
 							var tagsPj3 = []; //Tipo de personaje3
