@@ -1,6 +1,6 @@
 //VARS
-const RIOT_TOKEN = "?api_key=RGAPI-330d69a2-d57d-4d4d-bf4d-7778c82bcb3f";
-const RIOT_TOKEN2 = "RGAPI-330d69a2-d57d-4d4d-bf4d-7778c82bcb3f";
+const RIOT_TOKEN = "?api_key=RGAPI-10c20f26-81ef-455b-b594-a556295c3c52";
+const RIOT_TOKEN2 = "RGAPI-10c20f26-81ef-455b-b594-a556295c3c52";
 var nombre = '';
 var encryptedSummonerId = '';
 var puuid = '';
@@ -81,7 +81,7 @@ function persistirCuenta() {
 			alert("Cuenta guardada correctamente");
 		})
 }
-
+//PERSISTIR CUENTA
 document.getElementById("addCuenta").onclick = function() {
 	persistirCuenta();
 }
@@ -115,7 +115,6 @@ document.getElementById("btnBuscar").onclick = function() {
 			encryptedSummonerId = data.id;
 			puuid = data.puuid;
 		})
-
 		.catch(function(error) {
 			console.log(error);
 		});
@@ -290,7 +289,6 @@ function obtenerItemsPartida2(arrayParticipantesF) {
 				document.getElementById("p2divitem3").remove();
 			}
 			if (arrayParticipantesF[i].item4 == 0) {
-				console.log('AQUII ' + arrayParticipantesF[i].item4);
 				document.getElementById("p2divitem4").remove();
 			} else {
 				document.getElementById("p2item4").src = urlItemIcons + arrayParticipantesF[i].item4 + '.png';	
@@ -481,7 +479,7 @@ document.getElementById("ver").onclick = function() {
 							//Almaceno el id de los personajes con mas maestria de la cuenta
 							var ids = [];
 							for (let i = 0; i < 3; i++) {
-								console.log(dataMastery[i]);
+								//console.log(dataMastery[i]);
 								ids.push(dataMastery[i].championId);
 							}
 							//Mostrar en pantalla
@@ -502,7 +500,7 @@ document.getElementById("ver").onclick = function() {
 							var tagsPj3 = []; //Tipo de personaje3
 							for (let i = 0; i < arrayMapped.length; i++) {
 								if (arrayMapped[i].key == ids[0]) {
-									console.log(arrayMapped[i].name);
+									//console.log(arrayMapped[i].name);
 									tagsPj1.push(arrayMapped[i].tags);
 									pj1 = arrayMapped[i].name;
 									document.getElementById("nombrePj1").textContent = arrayMapped[i].name;
@@ -511,7 +509,7 @@ document.getElementById("ver").onclick = function() {
 										document.getElementById("tagsPj1").textContent = tagsPj1[x];
 									}
 								} else if (arrayMapped[i].key == ids[1]) {
-									console.log(arrayMapped[i].name);
+									//console.log(arrayMapped[i].name);
 									tagsPj2.push(arrayMapped[i].tags);
 									pj2 = arrayMapped[i].name;
 									document.getElementById("nombrePj2").textContent = arrayMapped[i].name;
@@ -520,7 +518,7 @@ document.getElementById("ver").onclick = function() {
 										document.getElementById("tagsPj2").textContent = tagsPj2[x];
 									}
 								} else if (arrayMapped[i].key == ids[2]) {
-									console.log(arrayMapped[i].name);
+									//console.log(arrayMapped[i].name);
 									tagsPj3.push(arrayMapped[i].tags);
 									document.getElementById("nombrePj3").textContent = arrayMapped[i].name;
 									document.getElementById("lorePj3").textContent = arrayMapped[i].title;
@@ -530,7 +528,7 @@ document.getElementById("ver").onclick = function() {
 									pj3 = arrayMapped[i].name;
 								}
 							}
-							console.log(arrayMapped);
+							//console.log(arrayMapped);
 
 							//Check si es este personaje para quitar el caracter del nombre y cargar los datos correctamente
 							if (pj1 == "Kai'Sa") {
@@ -563,7 +561,7 @@ document.getElementById("ver").onclick = function() {
 				.then(function(data) {
 					var idsPartidas = [];
 					idsPartidas.push(data);
-					console.log(idsPartidas);
+					//console.log(idsPartidas);
 					fetch(urlPartidas + idsPartidas[0][0] + RIOT_TOKEN)
 						.then(resp => {
 							if (resp.ok) {
@@ -577,7 +575,7 @@ document.getElementById("ver").onclick = function() {
 							var arrayParticipantes = [];
 							arrayParticipantes.push(data.info.participants);
 							var arrayParticipantesF = arrayParticipantes.map(x => Object.values(x)).flat();
-							console.log(arrayParticipantesF);
+							//console.log(arrayParticipantesF);
 							document.getElementById("modoPartida1").textContent = data.info.gameMode;
 							document.getElementById("duracion1").textContent = Math.round(data.info.gameDuration / 60) + ' min';
 							obtenerItemsPartida1(arrayParticipantesF);
@@ -595,7 +593,7 @@ document.getElementById("ver").onclick = function() {
 							var arrayParticipantes = [];
 							arrayParticipantes.push(data.info.participants);
 							var arrayParticipantesF = arrayParticipantes.map(x => Object.values(x)).flat();
-							console.log(arrayParticipantesF);
+							//console.log(arrayParticipantesF);
 							document.getElementById("modoPartida2").textContent = data.info.gameMode;
 							document.getElementById("duracion2").textContent = Math.round(data.info.gameDuration / 60) + ' min';
 							obtenerItemsPartida2(arrayParticipantesF);
@@ -613,7 +611,7 @@ document.getElementById("ver").onclick = function() {
 							var arrayParticipantes = [];
 							arrayParticipantes.push(data.info.participants);
 							var arrayParticipantesF = arrayParticipantes.map(x => Object.values(x)).flat();
-							console.log(arrayParticipantesF);
+							//console.log(arrayParticipantesF);
 							document.getElementById("modoPartida3").textContent = data.info.gameMode;
 							document.getElementById("duracion3").textContent = Math.round(data.info.gameDuration / 60) + ' min';
 							obtenerItemsPartida3(arrayParticipantesF);
@@ -632,8 +630,8 @@ document.getElementById("ver").onclick = function() {
 							var arrayParticipantes = [];
 							arrayParticipantes.push(data.info.participants);
 							var arrayParticipantesF = arrayParticipantes.map(x => Object.values(x)).flat();
-							console.log(arrayParticipantesF);
-							console.log(data);
+							//console.log(arrayParticipantesF);
+							//console.log(data);
 							document.getElementById("modoPartida4").textContent = data.info.gameMode;
 							document.getElementById("duracion4").textContent = Math.round(data.info.gameDuration / 60) + ' min';
 							obtenerItemsPartida4(arrayParticipantesF);
